@@ -13,14 +13,14 @@ class HomeViewModel {
     private let apiService: APIService
     private var movieResponses = [MovieResponse]()
     private var personResponses = [PersonResponse]()
-    private let endpoints = [Endpoints.mostPopularMoviesURL, Endpoints.topRatedMoviesURL, Endpoints.upcomingMoviesURL,Endpoints.nowPlaying, Endpoints.popularPersonsURL]
-    private var endpointCounter = 0
+    private let endpoints = [Endpoints.trendingMovies,Endpoints.mostPopularMoviesURL, Endpoints.topRatedMoviesURL, Endpoints.upcomingMoviesURL,Endpoints.nowPlaying, Endpoints.popularPersonsURL]
 
     init(apiService: APIService = APIService()) {
         self.apiService = apiService
     }
 
     func fetchMoviesForHomeScreen(completion: @escaping () -> Void) {
+        var endpointCounter = 0
         apiService.performHTTPRequest(request: endpoints) { [self] (data, responseURL, responseCategory)  in
             if responseURL.contains("/movie/") {
                 var movieResponse = apiService.parseMovieResponse(data: data)
@@ -31,7 +31,6 @@ class HomeViewModel {
                 }
                 movieResponses.append(movieResponse)
             } else {
-
                 var personResponse = apiService.parsePersonResponse(data: data)
                 personResponse.listCategory = responseTitleToString(string: responseCategory)
                 for n in 0..<personResponse.results.count {
@@ -39,7 +38,6 @@ class HomeViewModel {
                         ImageService.getImageFromURL(url: personResponse.results[n].posterURL())
                 }
                 personResponses.append(personResponse)
-
             }
             endpointCounter += 1
             if endpointCounter == endpoints.count {
@@ -56,8 +54,8 @@ class HomeViewModel {
         return movieResponses.count
     }
 
-    func getMoviesFromMovieResponse(index: Int) -> [Movie] {
-        return movieResponses[index].results
+    func getMoviesFromMovieResponse(index: Int) -> ([TV]?, [Movie]?) {
+        return (nil ,movieResponses[index].results)
     }
 
     func getPersonFromCastResponse(index: Int) -> [Person] {
@@ -75,8 +73,11 @@ class HomeViewModel {
     }
 
     private func responseTitleToString(string: String) -> String {
-        let categoryTitle = string.replacingOccurrences(of: "_", with: " ")
+
+        var categoryTitle = string.replacingOccurrences(of: "_", with: " ")
+        if categoryTitle.lowercased() == "day" {
+            categoryTitle = "Trending today"
+        }
         return categoryTitle.prefix(1).uppercased() + categoryTitle.lowercased().dropFirst()
     }
-    // while toprated.count < 100 -> endpoint category page = 1 -> http reguest -> page +1
 }
