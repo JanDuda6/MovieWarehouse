@@ -24,5 +24,4 @@ struct Movie: Codable {
         guard let posterPath = posterPath else { return nil }
         return URL(string: "\(Endpoints.imagePathURL)\(posterPath)")
     }
-
 }

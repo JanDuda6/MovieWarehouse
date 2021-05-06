@@ -7,26 +7,30 @@
 
 import Foundation
 
-class HomeView: HomeViewModel {
+class HomeScreenTVVM: HomeScreenMoviesVM {
 
     private let apiService: APIService
-     var tvResponses = [TVResponse]()
+    private let imageService: ImageService
+
+    private var tvResponses = [TVResponse]()
     private let tvEndpoints = [Endpoints.mostPopularTV, Endpoints.topRatedTV, Endpoints.trendingTV, Endpoints.tvOnTheAir]
 
-    override init(apiService: APIService = APIService()) {
+    override init(apiService: APIService = APIService(), imageService: ImageService = ImageService()) {
         self.apiService = apiService
+        self.imageService = imageService
     }
 
-    override func fetchMoviesForHomeScreen(completion: @escaping () -> Void) {
+    override func fetchForHomeScreen(completion: @escaping () -> Void) {
         var endpointCounter = 0
         apiService.performHTTPRequest(request: tvEndpoints) { [self] (data, responseURL, responseCategory)  in
-                var tvResponse = apiService.parseTVResponse(data: data)
-                tvResponse.listCategory = responseTitleToString(string: responseCategory)
-                for n in 0..<tvResponse.results.count {
-                    tvResponse.results[n].posterImage =
-                        ImageService.getImageFromURL(url: tvResponse.results[n].posterURL())
-                }
-                tvResponses.append(tvResponse)
+            var tvResponse = apiService.parseTVResponse(data: data)
+            tvResponse.listCategory = StringService.responseTitleToString(string: responseCategory)
+            tvResponse.responseURL = responseURL
+            for n in 0..<tvResponse.results.count {
+                tvResponse.results[n].posterImage =
+                    imageService.getImageFromURL(url: tvResponse.results[n].posterURL())
+            }
+            tvResponses.append(tvResponse)
             endpointCounter += 1
             if endpointCounter == tvEndpoints.count {
                 completion()
@@ -38,19 +42,15 @@ class HomeView: HomeViewModel {
         return tvResponses.count
     }
 
-    override func getMoviesFromMovieResponse(index: Int) -> ([TV]?, [Movie]?) {
+    override func getMoviesOrTVShows(index: Int) -> ([TV]?, [Movie]?) {
         return (tvResponses[index].results, nil)
+    }
+
+    override func getMovieOrTVResponseURL(index: Int) -> String {
+        return tvResponses[index].responseURL
     }
 
     override func getListCategory(index: Int) -> String {
         return tvResponses[index].listCategory
-    }
-
-    private func responseTitleToString(string: String) -> String {
-        var categoryTitle = string.replacingOccurrences(of: "_", with: " ")
-        if categoryTitle.lowercased() == "day" {
-            categoryTitle = "Trending today"
-        }
-        return categoryTitle.prefix(1).uppercased() + categoryTitle.lowercased().dropFirst()
     }
 }
