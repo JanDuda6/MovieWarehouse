@@ -8,34 +8,40 @@
 import Foundation
 import UIKit
 
-class HomeViewModel {
+class HomeScreenMoviesVM {
 
     private let apiService: APIService
+    private let imageService: ImageService
+
     private var movieResponses = [MovieResponse]()
     private var personResponses = [PersonResponse]()
+
     private let endpoints = [Endpoints.trendingMovies,Endpoints.mostPopularMoviesURL, Endpoints.topRatedMoviesURL, Endpoints.upcomingMoviesURL,Endpoints.nowPlaying, Endpoints.popularPersonsURL]
 
-    init(apiService: APIService = APIService()) {
+    init(apiService: APIService = APIService(), imageService: ImageService = ImageService()) {
         self.apiService = apiService
+        self.imageService = imageService
     }
 
-    func fetchMoviesForHomeScreen(completion: @escaping () -> Void) {
+    func fetchForHomeScreen(completion: @escaping () -> Void) {
         var endpointCounter = 0
         apiService.performHTTPRequest(request: endpoints) { [self] (data, responseURL, responseCategory)  in
             if responseURL.contains("/movie/") {
                 var movieResponse = apiService.parseMovieResponse(data: data)
-                movieResponse.listCategory = responseTitleToString(string: responseCategory)
+                movieResponse.listCategory = StringService.responseTitleToString(string: responseCategory)
+                movieResponse.responseURL = responseURL
                 for n in 0..<movieResponse.results.count {
                     movieResponse.results[n].posterImage =
-                        ImageService.getImageFromURL(url: movieResponse.results[n].posterURL())
+                        imageService.getImageFromURL(url: movieResponse.results[n].posterURL())
                 }
                 movieResponses.append(movieResponse)
             } else {
                 var personResponse = apiService.parsePersonResponse(data: data)
-                personResponse.listCategory = responseTitleToString(string: responseCategory)
+                personResponse.listCategory = StringService.responseTitleToString(string: responseCategory)
+                personResponse.responseURL = responseURL
                 for n in 0..<personResponse.results.count {
                     personResponse.results[n].profileImage =
-                        ImageService.getImageFromURL(url: personResponse.results[n].posterURL())
+                        imageService.getImageFromURL(url: personResponse.results[n].posterURL())
                 }
                 personResponses.append(personResponse)
             }
@@ -46,15 +52,24 @@ class HomeViewModel {
         }
     }
 
+    func getMovieOrTVResponseURL(index: Int) -> String {
+        return movieResponses[index].responseURL
+    }
+
+    func getPersonResponseURL(index: Int) -> String {
+        let indexPath = index - getResponsesCounter() + 1
+        return personResponses[indexPath].responseURL
+    }
+
     func getResponsesCounter() -> Int {
         return movieResponses.count + personResponses.count
     }
-
+    
     func getMovieResponsesCount() -> Int {
         return movieResponses.count
     }
 
-    func getMoviesFromMovieResponse(index: Int) -> ([TV]?, [Movie]?) {
+    func getMoviesOrTVShows(index: Int) -> ([TV]?, [Movie]?) {
         return (nil ,movieResponses[index].results)
     }
 
@@ -70,14 +85,5 @@ class HomeViewModel {
             let indexPath = index - getResponsesCounter() + 1
             return personResponses[indexPath].listCategory
         }
-    }
-
-    private func responseTitleToString(string: String) -> String {
-
-        var categoryTitle = string.replacingOccurrences(of: "_", with: " ")
-        if categoryTitle.lowercased() == "day" {
-            categoryTitle = "Trending today"
-        }
-        return categoryTitle.prefix(1).uppercased() + categoryTitle.lowercased().dropFirst()
     }
 }

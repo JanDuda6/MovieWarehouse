@@ -37,5 +37,9 @@ class APIService {
     func parsePersonResponse(data: Data) -> PersonResponse {
         return try! decoder.decode(PersonResponse.self, from: data)
     }
+
+    func parseTVResponse(data: Data) -> TVResponse {
+        return try! decoder.decode(TVResponse.self, from: data)
+    }
 }
 

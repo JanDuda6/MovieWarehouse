@@ -12,13 +12,15 @@ class HomeScreenTVVMTests: XCTestCase {
 
     func testSuccessFetchForHomeScreen() {
         let apiService = MockApiService()
-        let viewModel = HomeScreenTVVM(apiService: apiService)
+        let imageService = MockImageService()
+        let viewModel = HomeScreenTVVM(apiService: apiService, imageService: imageService)
+        var tvShows = [TV]()
+        var listCategory = ""
         viewModel.fetchForHomeScreen { () in
-            let tvShows = viewModel.getMoviesOrTVShows(index: 0).0
-            let listCategory = viewModel.getListCategory(index: 0)
-            XCTAssertEqual(tvShows![0].name, "Test TV")
-            print("aaaa \(listCategory)")
-            XCTAssertEqual(listCategory, "")
         }
+        tvShows = viewModel.getMoviesOrTVShows(index: 0).0!
+        listCategory = viewModel.getListCategory(index: 0)
+        XCTAssertEqual(tvShows[0].name, "Test TV")
+        XCTAssertEqual(listCategory, "Top rated")
     }
 }

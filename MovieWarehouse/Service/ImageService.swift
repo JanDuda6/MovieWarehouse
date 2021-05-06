@@ -8,8 +8,8 @@
 import Foundation
 import UIKit
 
-struct ImageService {
-    static func getImageFromURL(url: URL?) -> UIImage {
+class ImageService {
+    func getImageFromURL(url: URL?) -> UIImage {
         if url != nil {
             let dataImage = try! Data(contentsOf: url!)
             let image = UIImage(data: dataImage)
@@ -17,6 +17,6 @@ struct ImageService {
         } else {
             return UIImage()
         }
-
+        
     }
 }
