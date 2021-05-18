@@ -28,7 +28,7 @@ class HomeScreenTVVM: HomeScreenMoviesVM {
             tvResponse.responseURL = responseURL
             for n in 0..<tvResponse.results.count {
                 tvResponse.results[n].posterImage =
-                    imageService.getImageFromURL(url: tvResponse.results[n].posterURL())
+                    imageService.getImageFromURL(url: imageService.profileURL(pathToImage: tvResponse.results[n].posterPath))
             }
             tvResponses.append(tvResponse)
             endpointCounter += 1

@@ -8,10 +8,12 @@
 import UIKit
 
 class HomeVC: UITableViewController {
-
     private var viewModel = HomeScreenMoviesVM()
     private let activitySpinner = UIActivityIndicatorView(style: .medium)
     private var responseURL = ""
+    private var movie: Movie?
+    private var person: Person?
+    private var tvShow: TV?
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -36,7 +38,7 @@ class HomeVC: UITableViewController {
     }
 }
 
-//MARK: - Table view
+//MARK: - TableView
 extension HomeVC {
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return viewModel.getResponsesCounter()
@@ -71,7 +73,22 @@ extension HomeVC {
 
 //MARK: - Perform Segue Delegate
 extension HomeVC: PerformSegueDelegate {
-    func didPerformSegue(responseURL: String) {
+    func didPerformMovieDetailsSegue(movie: Movie) {
+        self.movie = movie
+        performSegue(withIdentifier: "MovieDetailsSegue", sender: self)
+    }
+
+    func didPerformPersonDetailsSegue(person: Person) {
+        self.person = person
+        performSegue(withIdentifier: "MovieDetailsSegue", sender: self)
+    }
+
+    func didPerformTVShowDetailsSegue(tvShow: TV) {
+        self.tvShow = tvShow
+        performSegue(withIdentifier: "MovieDetailsSegue", sender: self)
+    }
+
+    func didPerformSegueSeeMore(responseURL: String) {
         self.responseURL = responseURL
         self.performSegue(withIdentifier: "SeeMoreSegue", sender: self)
     }
@@ -79,7 +96,13 @@ extension HomeVC: PerformSegueDelegate {
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "SeeMoreSegue" {
             if let seeMoreVC = segue.destination as? SeeMoreVC {
-                seeMoreVC.endpoint = self.responseURL
+                seeMoreVC.setEndpoint(endpoint: self.responseURL)
+            }
+        }
+        if segue.identifier == "MovieDetailsSegue" {
+            if let movieOrTVeDetailsVC = segue.destination as? MovieOrTVDetailsVC {
+                movieOrTVeDetailsVC.setMovie(movie: self.movie)
+                movieOrTVeDetailsVC.setTV(tv: self.tvShow)
             }
         }
     }

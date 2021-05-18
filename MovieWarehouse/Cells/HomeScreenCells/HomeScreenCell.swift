@@ -9,7 +9,10 @@ import Foundation
 import UIKit
 
 protocol PerformSegueDelegate {
-    func didPerformSegue(responseURL: String)
+    func didPerformSegueSeeMore(responseURL: String)
+    func didPerformMovieDetailsSegue(movie: Movie)
+    func didPerformPersonDetailsSegue(person: Person)
+    func didPerformTVShowDetailsSegue(tvShow: TV)
 }
 
 class HomeScreenCell: UITableViewCell, UICollectionViewDelegateFlowLayout {
@@ -61,7 +64,7 @@ class HomeScreenCell: UITableViewCell, UICollectionViewDelegateFlowLayout {
     }
 
     @IBAction private func seeMoreButtonTapped(_ sender: UIButton) {
-        performSegueDelegate?.didPerformSegue(responseURL: responseURL)
+        performSegueDelegate?.didPerformSegueSeeMore(responseURL: responseURL)
     }
 }
 
@@ -87,7 +90,7 @@ extension HomeScreenCell: UICollectionViewDelegate, UICollectionViewDataSource {
             cell.setCollectionViewCell(image: movies[indexPath.row].posterImage, title: movies[indexPath.row].title)
         }
         if showTVCollection == true {
-            cell.setCollectionViewCell(image: tvShows[indexPath.row].posterImage, title: tvShows[indexPath.row].name)
+            cell.setCollectionViewCell(image: tvShows[indexPath.row].posterImage, title: tvShows[indexPath.row].title)
         }
         return cell
     }
@@ -126,9 +129,13 @@ extension HomeScreenCell {
     @objc private func handleTap(_ sender: UITapGestureRecognizer) {
         if let indexPath = self.collectionView?.indexPathForItem(at: sender.location(in: self.collectionView)) {
             if showPersonsCollection == true {
-                print("person")
-            } else {
-                print("movie")
+                performSegueDelegate?.didPerformPersonDetailsSegue(person: persons[indexPath.row])
+            }
+            if showPersonsCollection == false && showTVCollection == false {
+                performSegueDelegate?.didPerformMovieDetailsSegue(movie: movies[indexPath.row])
+            }
+            if showTVCollection == true {
+                performSegueDelegate?.didPerformTVShowDetailsSegue(tvShow: tvShows[indexPath.row])
             }
         }
     }

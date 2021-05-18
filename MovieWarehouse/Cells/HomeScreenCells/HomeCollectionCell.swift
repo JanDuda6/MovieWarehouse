@@ -18,7 +18,7 @@ class HomeCollectionCell: UICollectionViewCell {
     }
     
     func setCollectionViewCell(image: UIImage, title: String) {
-        self.imageView.layer.cornerRadius = 5
+        self.imageView.layer.cornerRadius = 10
         self.imageView.image = image
         self.titleLabel.text = title
     }
