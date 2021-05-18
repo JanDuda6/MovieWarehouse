@@ -9,6 +9,12 @@ import Foundation
 import UIKit
 
 class ImageService {
+    
+     func profileURL(pathToImage: String?) -> URL? {
+         guard let imagePath = pathToImage else { return nil }
+         return URL(string: "\(Endpoints.imagePathURL)\(imagePath)")
+     }
+
     func getImageFromURL(url: URL?) -> UIImage {
         if url != nil {
             let dataImage = try! Data(contentsOf: url!)
@@ -17,6 +23,5 @@ class ImageService {
         } else {
             return UIImage()
         }
-        
     }
 }

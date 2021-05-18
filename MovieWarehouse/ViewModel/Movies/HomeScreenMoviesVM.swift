@@ -9,10 +9,8 @@ import Foundation
 import UIKit
 
 class HomeScreenMoviesVM {
-
     private let apiService: APIService
     private let imageService: ImageService
-
     private var movieResponses = [MovieResponse]()
     private var personResponses = [PersonResponse]()
 
@@ -32,7 +30,7 @@ class HomeScreenMoviesVM {
                 movieResponse.responseURL = responseURL
                 for n in 0..<movieResponse.results.count {
                     movieResponse.results[n].posterImage =
-                        imageService.getImageFromURL(url: movieResponse.results[n].posterURL())
+                        imageService.getImageFromURL(url: imageService.profileURL(pathToImage: movieResponse.results[n].posterPath))
                 }
                 movieResponses.append(movieResponse)
             } else {
@@ -41,7 +39,7 @@ class HomeScreenMoviesVM {
                 personResponse.responseURL = responseURL
                 for n in 0..<personResponse.results.count {
                     personResponse.results[n].profileImage =
-                        imageService.getImageFromURL(url: personResponse.results[n].posterURL())
+                        imageService.getImageFromURL(url: imageService.profileURL(pathToImage: personResponse.results[n].profilePath))
                 }
                 personResponses.append(personResponse)
             }

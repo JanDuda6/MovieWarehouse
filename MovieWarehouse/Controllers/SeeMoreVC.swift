@@ -11,12 +11,18 @@ import UIKit
 class SeeMoreVC: UICollectionViewController, UICollectionViewDelegateFlowLayout {
 
     private let seeMoreVM = SeeAllVM()
-    var endpoint = ""
+    private var movieToShown: Movie?
+    private var tvToShown: TV?
+    private var endpoint = ""
 
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         self.collectionView.delegate = self
         fetchMovies(endpoint: endpoint)
+    }
+
+    func setEndpoint(endpoint: String) {
+        self.endpoint = endpoint
     }
 
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
@@ -36,7 +42,7 @@ class SeeMoreVC: UICollectionViewController, UICollectionViewDelegateFlowLayout 
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "SeeMoreCell", for: indexPath) as! HomeCollectionCell
         if endpoint.contains("/tv/") {
-            cell.setCollectionViewCell(image: seeMoreVM.getTVShows()[indexPath.row].posterImage, title: seeMoreVM.getTVShows()[indexPath.row].name)
+            cell.setCollectionViewCell(image: seeMoreVM.getTVShows()[indexPath.row].posterImage, title: seeMoreVM.getTVShows()[indexPath.row].title)
         }
         if endpoint.contains("/movie/") {
             cell.setCollectionViewCell(image: seeMoreVM.getMovies()[indexPath.row].posterImage, title: seeMoreVM.getMovies()[indexPath.row].title)
@@ -50,7 +56,6 @@ class SeeMoreVC: UICollectionViewController, UICollectionViewDelegateFlowLayout 
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         let screenWidth = UIScreen.main.bounds.size.width
         var width: CGFloat = 0
-
         switch screenWidth {
         case 375...428:
              width = (self.collectionView.bounds.width - 20)/3
@@ -61,6 +66,30 @@ class SeeMoreVC: UICollectionViewController, UICollectionViewDelegateFlowLayout 
         }
         let height  = width * 1.7
         return CGSize(width: width, height: height)
+    }
+
+    override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        if endpoint.contains("/tv/") {
+            tvToShown = seeMoreVM.getTVShows()[indexPath.row]
+            performSegue(withIdentifier: "MovieDetailsSegue", sender: self)
+        }
+        if endpoint.contains("/movie/") {
+            movieToShown = seeMoreVM.getMovies()[indexPath.row]
+            performSegue(withIdentifier: "MovieDetailsSegue", sender: self)
+        }
+
+        if endpoint.contains("/person/") {
+            print(seeMoreVM.getPersons()[indexPath.row])
+        }
+    }
+
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "MovieDetailsSegue" {
+            if let detailsVC = segue.destination as? MovieOrTVDetailsVC {
+                detailsVC.setMovie(movie: self.movieToShown)
+                detailsVC.setTV(tv: self.tvToShown)
+            }
+        }
     }
 
     override func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {

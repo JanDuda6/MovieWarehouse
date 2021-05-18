@@ -41,5 +41,17 @@ class APIService {
     func parseTVResponse(data: Data) -> TVResponse {
         return try! decoder.decode(TVResponse.self, from: data)
     }
+
+    func parseGenreResponse(data: Data) -> GenreResponse {
+        return try! decoder.decode(GenreResponse.self, from: data)
+    }
+
+    func parseCastResponse(data: Data) -> CreditsResponse {
+        return try! decoder.decode(CreditsResponse.self, from: data)
+    }
+
+    func parseWatchProvider(data: Data) -> ProvidersResponse {
+        return try! decoder.decode(ProvidersResponse.self, from: data)
+    }
 }
 

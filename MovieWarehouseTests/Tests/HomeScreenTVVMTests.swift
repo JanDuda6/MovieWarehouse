@@ -20,7 +20,7 @@ class HomeScreenTVVMTests: XCTestCase {
         }
         tvShows = viewModel.getMoviesOrTVShows(index: 0).0!
         listCategory = viewModel.getListCategory(index: 0)
-        XCTAssertEqual(tvShows[0].name, "Test TV")
+        XCTAssertEqual(tvShows[0].title, "Test TV")
         XCTAssertEqual(listCategory, "Top rated")
     }
 }

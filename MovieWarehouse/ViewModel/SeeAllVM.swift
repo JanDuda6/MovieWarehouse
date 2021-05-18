@@ -32,7 +32,7 @@ class SeeAllVM {
                 currentPage = movieResponse.currentPage + 1
                 for n in 0..<results.count {
                     results[n].posterImage =
-                        imageService.getImageFromURL(url: results[n].posterURL())
+                        imageService.getImageFromURL(url: imageService.profileURL(pathToImage: results[n].posterPath))
                 }
                 movies.append(contentsOf: results)
             }
@@ -44,7 +44,7 @@ class SeeAllVM {
                 currentPage = personResponse.currentPage + 1
                 for n in 0..<results.count {
                     results[n].profileImage =
-                        imageService.getImageFromURL(url: results[n].posterURL())
+                        imageService.getImageFromURL(url: imageService.profileURL(pathToImage: results[n].profilePath))
                 }
                 persons.append(contentsOf: results)
             }
@@ -56,7 +56,7 @@ class SeeAllVM {
                 currentPage = tvResponse.currentPage + 1
                 for n in 0..<results.count {
                     results[n].posterImage =
-                        imageService.getImageFromURL(url: results[n].posterURL())
+                        imageService.getImageFromURL(url: imageService.profileURL(pathToImage: results[n].posterPath))
                 }
                 tvShows.append(contentsOf: results)
             }

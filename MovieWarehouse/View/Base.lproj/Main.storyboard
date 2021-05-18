@@ -76,6 +76,7 @@
                                                             <connections>
                                                                 <outlet property="imageView" destination="mlw-uR-OZq" id="K0y-KN-6UG"/>
                                                                 <outlet property="titleLabel" destination="963-pz-tOi" id="VcV-9q-IPk"/>
+                                                                <segue destination="bzY-Ai-pLE" kind="show" identifier="MovieDetailsSegue" id="abR-4O-gCb"/>
                                                             </connections>
                                                         </collectionViewCell>
                                                     </cells>
@@ -142,7 +143,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="cSh-HB-vcV" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-1417.3913043478262" y="-1323.2142857142856"/>
+            <point key="canvasLocation" x="-2812" y="-1323"/>
         </scene>
         <!--See MoreVC-->
         <scene sceneID="HnS-LL-UR1">
@@ -206,10 +207,13 @@
                         </connections>
                     </collectionView>
                     <navigationItem key="navigationItem" id="Z2r-kO-cfr"/>
+                    <connections>
+                        <segue destination="bzY-Ai-pLE" kind="show" identifier="MovieDetailsSegue" id="qZN-j7-ZFm"/>
+                    </connections>
                 </collectionViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="UID-M3-ihT" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-388.40579710144931" y="-1323.2142857142856"/>
+            <point key="canvasLocation" x="-1928" y="-1301"/>
         </scene>
         <!--Account-->
         <scene sceneID="Ga4-cM-Ks4">
@@ -225,7 +229,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="P6h-tT-q3E" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-1417" y="889"/>
+            <point key="canvasLocation" x="-2771" y="764"/>
         </scene>
         <!--Search-->
         <scene sceneID="zfv-9o-W2e">
@@ -241,7 +245,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="MLG-RX-Vrw" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-1417" y="157"/>
+            <point key="canvasLocation" x="-2771" y="76"/>
         </scene>
         <!--Movie Warehouse-->
         <scene sceneID="97Y-QZ-0yQ">
@@ -419,15 +423,48 @@
                     <navigationItem key="navigationItem" id="dyO-sc-XWq"/>
                     <connections>
                         <segue destination="8qD-M3-X6V" kind="show" identifier="SeeMoreSegue" id="sel-5x-2dF"/>
+                        <segue destination="bzY-Ai-pLE" kind="show" identifier="MovieDetailsSegue" id="GPt-k2-T94"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="rTW-Ak-GNg" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-1417.3913043478262" y="-635.49107142857144"/>
+            <point key="canvasLocation" x="-2771" y="-621"/>
+        </scene>
+        <!--Movie OrTV DetailsVC-->
+        <scene sceneID="ww2-tQ-0Jk">
+            <objects>
+                <tableViewController id="bzY-Ai-pLE" customClass="MovieOrTVDetailsVC" customModule="MovieWarehouse" customModuleProvider="target" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="BZs-MI-4iM">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="808"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <color key="sectionIndexBackgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <prototypes>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="SomeCell" id="E1B-xo-6Mp">
+                                <rect key="frame" x="0.0" y="28" width="414" height="43.5"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="E1B-xo-6Mp" id="Qul-zn-Ncs">
+                                    <rect key="frame" x="0.0" y="0.0" width="414" height="43.5"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                </tableViewCellContentView>
+                                <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            </tableViewCell>
+                        </prototypes>
+                        <connections>
+                            <outlet property="dataSource" destination="bzY-Ai-pLE" id="x7i-NF-XR9"/>
+                            <outlet property="delegate" destination="bzY-Ai-pLE" id="u10-nH-FBS"/>
+                        </connections>
+                    </tableView>
+                    <navigationItem key="navigationItem" id="6bC-I0-fgz"/>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="5xS-9l-K0H" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-1746" y="-593"/>
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
-        <segue reference="sel-5x-2dF"/>
+        <segue reference="GPt-k2-T94"/>
+        <segue reference="e7W-1h-dVr"/>
     </inferredMetricsTieBreakers>
     <color key="tintColor" systemColor="systemOrangeColor"/>
     <resources>
