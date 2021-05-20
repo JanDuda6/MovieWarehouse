@@ -13,7 +13,7 @@ class HomeViewModelTests: XCTestCase {
     func testSuccessFetchForHomeScreen() {
         let apiService = MockApiService()
         let imageService = MockImageService()
-        let viewModel = HomeScreenMoviesVM(apiService: apiService, imageService: imageService)
+        let viewModel = HomeScreenMoviesOrTVVM(apiService: apiService, imageService: imageService)
         var movies = [Movie]()
         var persons = [Person]()
         var listCategory = ""

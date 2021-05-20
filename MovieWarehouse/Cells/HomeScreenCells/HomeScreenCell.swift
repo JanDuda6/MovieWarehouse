@@ -8,13 +8,6 @@
 import Foundation
 import UIKit
 
-protocol PerformSegueDelegate {
-    func didPerformSegueSeeMore(responseURL: String)
-    func didPerformMovieDetailsSegue(movie: Movie)
-    func didPerformPersonDetailsSegue(person: Person)
-    func didPerformTVShowDetailsSegue(tvShow: TV)
-}
-
 class HomeScreenCell: UITableViewCell, UICollectionViewDelegateFlowLayout {
     @IBOutlet private weak var collectionView: UICollectionView!
     @IBOutlet private weak var label: UILabel!
@@ -26,9 +19,7 @@ class HomeScreenCell: UITableViewCell, UICollectionViewDelegateFlowLayout {
 
     private var movies = [Movie]()
     private var persons = [Person]()
-    private var tvShows = [TV]()
     private var showPersonsCollection = false
-    private var showTVCollection = false
     private var responseURL = ""
 
     override func awakeFromNib() {
@@ -44,7 +35,7 @@ class HomeScreenCell: UITableViewCell, UICollectionViewDelegateFlowLayout {
         self.label.text = collectionViewLabel
     }
 
-    func setMoviesArray(movies: [Movie], changeCollection: Bool) {
+    func setMovieOrTVArray(movies: [Movie], changeCollection: Bool) {
         self.movies = movies
         self.showPersonsCollection = changeCollection
     }
@@ -52,11 +43,6 @@ class HomeScreenCell: UITableViewCell, UICollectionViewDelegateFlowLayout {
     func setPersonArray(persons: [Person], changeCollection: Bool) {
         self.persons = persons
         self.showPersonsCollection = changeCollection
-    }
-
-    func setTVShowArray(tv: [TV], changeCollection: Bool) {
-        self.tvShows = tv
-        self.showTVCollection = true
     }
 
     func setResponseURL(url: String) {
@@ -72,25 +58,16 @@ class HomeScreenCell: UITableViewCell, UICollectionViewDelegateFlowLayout {
 extension HomeScreenCell: UICollectionViewDelegate, UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         var collectionRows = 0
-        switch showTVCollection {
-        case true:
-            collectionRows = tvShows.count
-        default:
-            collectionRows = self.showPersonsCollection == false ? movies.count : persons.count
-        }
+        collectionRows = self.showPersonsCollection == false ? movies.count : persons.count
         return collectionRows
     }
 
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "HomeCollectionCell", for: indexPath) as! HomeCollectionCell
         if showPersonsCollection == true {
-            cell.setCollectionViewCell(image: persons[indexPath.row].profileImage, title: persons[indexPath.row].name)
-        }
-        if showPersonsCollection == false && showTVCollection == false {
-            cell.setCollectionViewCell(image: movies[indexPath.row].posterImage, title: movies[indexPath.row].title)
-        }
-        if showTVCollection == true {
-            cell.setCollectionViewCell(image: tvShows[indexPath.row].posterImage, title: tvShows[indexPath.row].title)
+            cell.setCollectionViewPersonCell(person: persons[indexPath.row])
+        } else {
+            cell.setCollectionViewMovieCell(movie: movies[indexPath.row])
         }
         return cell
     }
@@ -102,11 +79,11 @@ extension HomeScreenCell: UICollectionViewDelegate, UICollectionViewDataSource {
 
         switch screenWidth {
         case 375...428:
-             width = (self.collectionView.bounds.width - 30)/2
+            width = (self.collectionView.bounds.width - 30)/2
         case 429...834:
             width = (self.collectionView.bounds.width - 50)/4
         default:
-             width = (self.collectionView.bounds.width - 60)/5
+            width = (self.collectionView.bounds.width - 60)/5
         }
         let height  = width * 1.7
         return CGSize(width: width, height: height)
@@ -130,12 +107,8 @@ extension HomeScreenCell {
         if let indexPath = self.collectionView?.indexPathForItem(at: sender.location(in: self.collectionView)) {
             if showPersonsCollection == true {
                 performSegueDelegate?.didPerformPersonDetailsSegue(person: persons[indexPath.row])
-            }
-            if showPersonsCollection == false && showTVCollection == false {
+            } else {
                 performSegueDelegate?.didPerformMovieDetailsSegue(movie: movies[indexPath.row])
-            }
-            if showTVCollection == true {
-                performSegueDelegate?.didPerformTVShowDetailsSegue(tvShow: tvShows[indexPath.row])
             }
         }
     }

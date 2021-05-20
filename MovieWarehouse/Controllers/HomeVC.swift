@@ -8,30 +8,22 @@
 import UIKit
 
 class HomeVC: UITableViewController {
-    private var viewModel = HomeScreenMoviesVM()
-    private let activitySpinner = UIActivityIndicatorView(style: .medium)
+    private var viewModel = HomeScreenMoviesOrTVVM()
+    private let activitySpinner = ActivitySpinnerService()
     private var responseURL = ""
     private var movie: Movie?
-    private var person: Person?
-    private var tvShow: TV?
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        initActivitySpinner()
-        changeViewModelClass()
+        activitySpinner.initTableViewSpinner(tableView: self.tableView)
         fetchHomeScreen()
     }
 
-    private func changeViewModelClass() {
-        if self.tabBarController?.tabBar.selectedItem?.title == "TV" {
-            self.viewModel = HomeScreenTVVM()
-        }
-    }
-
     private func fetchHomeScreen() {
-        viewModel.fetchForHomeScreen() { [self] () in
+        let moviesOrTV = self.tabBarController?.tabBar.selectedItem?.title == "TV" ? false : true
+        viewModel.fetchForHomeScreen(moviesOrTV: moviesOrTV) { [self] () in
             DispatchQueue.main.async() {
-                deInitActivitySpinner()
+                activitySpinner.deInitActivitySpinner()
                 self.tableView.reloadData()
             }
         }
@@ -46,25 +38,15 @@ extension HomeVC {
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "HomeScreenCell", for: indexPath) as! HomeScreenCell
-        let tabBarItem = self.tabBarController?.tabBar.selectedItem?.title
-
-        switch tabBarItem {
-        case "TV":
-            let tvShows = viewModel.getMoviesOrTVShows(index: indexPath.row)
-            cell.setTVShowArray(tv: tvShows.0!, changeCollection: true)
-            cell.setResponseURL(url: viewModel.getMovieOrTVResponseURL(index: indexPath.row))
-            cell.setTableviewCellLabel(collectionViewLabel: viewModel.getListCategory(index: indexPath.row))
-        default:
-            if indexPath.row != viewModel.getMovieResponsesCount() {
+            if indexPath.row != viewModel.getMovieOrTVResponsesCount() {
                 let movies = viewModel.getMoviesOrTVShows(index: indexPath.row)
-                cell.setMoviesArray(movies: movies.1!, changeCollection: false)
+                cell.setMovieOrTVArray(movies: movies, changeCollection: false)
                 cell.setResponseURL(url: viewModel.getMovieOrTVResponseURL(index: indexPath.row))
             } else {
                 cell.setPersonArray(persons: viewModel.getPersonFromCastResponse(index: indexPath.row), changeCollection: true)
                 cell.setResponseURL(url: viewModel.getPersonResponseURL(index: indexPath.row))
             }
-            cell.setTableviewCellLabel(collectionViewLabel: viewModel.getListCategory(index: indexPath.row))
-        }
+        cell.setTableviewCellLabel(collectionViewLabel: viewModel.getListCategory(index: indexPath.row))
         cell.performSegueDelegate = self
         self.tableView.rowHeight = cell.frame.height
         return cell
@@ -79,13 +61,10 @@ extension HomeVC: PerformSegueDelegate {
     }
 
     func didPerformPersonDetailsSegue(person: Person) {
-        self.person = person
-        performSegue(withIdentifier: "MovieDetailsSegue", sender: self)
-    }
-
-    func didPerformTVShowDetailsSegue(tvShow: TV) {
-        self.tvShow = tvShow
-        performSegue(withIdentifier: "MovieDetailsSegue", sender: self)
+        let storyboard = UIStoryboard(name: "PersonDetailsStoryboard", bundle: nil)
+        let vc = storyboard.instantiateViewController(withIdentifier: "PersonDetails") as! PersonDetailsVC
+        vc.setPerson(person: person)
+        self.navigationController?.show(vc, sender: nil)
     }
 
     func didPerformSegueSeeMore(responseURL: String) {
@@ -102,21 +81,7 @@ extension HomeVC: PerformSegueDelegate {
         if segue.identifier == "MovieDetailsSegue" {
             if let movieOrTVeDetailsVC = segue.destination as? MovieOrTVDetailsVC {
                 movieOrTVeDetailsVC.setMovie(movie: self.movie)
-                movieOrTVeDetailsVC.setTV(tv: self.tvShow)
             }
         }
-    }
-}
-
-//MARK: - Activity Spinner
-extension HomeVC {
-    private func initActivitySpinner() {
-        self.tableView.backgroundView = activitySpinner
-        activitySpinner.color = .gray
-        activitySpinner.startAnimating()
-    }
-
-    private func deInitActivitySpinner() {
-        self.activitySpinner.stopAnimating()
     }
 }

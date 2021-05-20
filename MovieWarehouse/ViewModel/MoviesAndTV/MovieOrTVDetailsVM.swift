@@ -8,7 +8,7 @@
 import Foundation
 import UIKit
 
-class MovieDetailsVM {
+class MovieOrTVDetailsVM {
     private var movie: Movie?
     private var apiService: APIService?
     private var genreList = [String]()
@@ -22,13 +22,15 @@ class MovieDetailsVM {
         self.imageService = imageService
     }
 
-    func setObject(movie: Movie?, tv: TV?) {
+    func setMovieOrTV(movie: Movie) {
         self.movie = movie
     }
 
-    func fetchGenre(completion: @escaping () -> Void) {
+    func fetchGenre(moviesOrTV: Bool, completion: @escaping () -> Void) {
         guard let movie = movie else { return }
-        apiService?.performHTTPRequest(request: [Endpoints.genreMovieList], completion: { [self] (data, _, _) in
+        var endpoint = [String]()
+        endpoint = moviesOrTV ==  true ? [Endpoints.genreMovieList] : [Endpoints.genreTVList]
+        apiService?.performHTTPRequest(request: endpoint, completion: { [self] (data, _, _) in
             self.movie!.backdropImage = imageService.getImageFromURL(url: imageService.profileURL(pathToImage: movie.backdropPath))
             let dataParsed = apiService?.parseGenreResponse(data: data)
             let genreList = dataParsed!.genres
@@ -39,14 +41,20 @@ class MovieDetailsVM {
                     }
                 }
             }
+            self.movie!.genreMap = getGenres()
             completion()
         })
     }
 
-    func fetchCredits(completion: @escaping () -> Void) {
+    func fetchCredits(moviesOrTV: Bool, completion: @escaping () -> Void) {
         guard var movie = movie else { return }
-        let creditsEndpoint = Endpoints.movieCredits.replacingOccurrences(of: "{movie_id}", with: String(movie.id))
-        apiService?.performHTTPRequest(request: [creditsEndpoint]) { [self] (data, _, _) in
+        var endpoint = [String]()
+        if moviesOrTV ==  true {
+            endpoint = [Endpoints.movieCredits.replacingOccurrences(of: "{movie_id}", with: String(movie.id))]
+        } else {
+            endpoint = [Endpoints.TVCredits.replacingOccurrences(of: "{tv_id}", with: String(movie.id))]
+        }
+        apiService?.performHTTPRequest(request: endpoint) { [self] (data, _, _) in
             guard let creditsResponse = apiService?.parseCastResponse(data: data) else { return }
             
             for n in 0..<creditsResponse.cast.count {
@@ -63,15 +71,20 @@ class MovieDetailsVM {
                 castAndCrew[n].profileImage =
                     imageService.getImageFromURL(url: imageService.profileURL(pathToImage: castAndCrew[n].profilePath))
             }
-            movie.genreMap = getMovieGenres()
+            movie.genreMap = getGenres()
             completion()
         }
     }
 
-    func fetchProviders(completion: @escaping () -> Void) {
+    func fetchProviders(moviesOrTV: Bool, completion: @escaping () -> Void) {
         guard let movie = movie else { return }
-        let objectWatchProviders = Endpoints.watchProvidersMovies.replacingOccurrences(of: "{movie_id}", with: String(movie.id))
-        apiService?.performHTTPRequest(request: [objectWatchProviders]) { [self] (data, _, _) in
+        var endpoint = [String]()
+        if moviesOrTV ==  true {
+            endpoint = [Endpoints.watchProvidersMovies.replacingOccurrences(of: "{movie_id}", with: String(movie.id))]
+        } else {
+            endpoint = [Endpoints.watchProvidersTVs.replacingOccurrences(of: "{tv_id}", with: String(movie.id))]
+        }
+        apiService?.performHTTPRequest(request: endpoint) { [self] (data, _, _) in
             guard let watchProvidersResponse = apiService?.parseWatchProvider(data: data) else { return }
             guard let responseResult = watchProvidersResponse.results else { return }
             guard let providers = responseResult.PL else {return}
@@ -87,10 +100,15 @@ class MovieDetailsVM {
         }
     }
 
-    func fetchRecommended(completion: @escaping () -> Void) {
+    func fetchRecommended(moviesOrTV: Bool, completion: @escaping () -> Void) {
         guard let movie = movie else { return }
-        let recommendedMovieEndpoint = Endpoints.getRecommendationMovies.replacingOccurrences(of: "{movie_id}", with: String(movie.id))
-        apiService?.performHTTPRequest(request: [recommendedMovieEndpoint]) { [self] (data, _, _) in
+            var endpoint = [String]()
+            if moviesOrTV ==  true {
+                endpoint = [Endpoints.getRecommendationMovies.replacingOccurrences(of: "{movie_id}", with: String(movie.id))]
+            } else {
+                endpoint = [Endpoints.getRecommendationTVShows.replacingOccurrences(of: "{tv_id}", with: String(movie.id))]
+            }
+        apiService?.performHTTPRequest(request: endpoint) { [self] (data, _, _) in
             guard var recommendedResponse = apiService?.parseMovieResponse(data: data) else { return }
             for n in 0..<recommendedResponse.results.count {
                 recommendedResponse.results[n].posterImage = imageService.getImageFromURL(url: imageService.profileURL(pathToImage: recommendedResponse.results[n].posterPath))
@@ -108,16 +126,16 @@ class MovieDetailsVM {
         return watchProviders
     }
 
-    func getMovieGenres() -> [String] {
+    private func getGenres() -> [String] {
         let slicedGenreList = (genreList.count > 2) ? Array(genreList.prefix(2)) : genreList
         return slicedGenreList
     }
 
-    func getRecommendation() -> ([Movie]?, [TV]?) {
-        return (movies, nil)
+    func getRecommendation() -> ([Movie]) {
+        return movies
     }
 
-    func getObject() -> (Movie?, TV?) {
-        return (movie, nil)
+    func getObject() -> Movie {
+        return movie!
     }
 }

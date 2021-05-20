@@ -17,9 +17,19 @@ class HomeCollectionCell: UICollectionViewCell {
         super.awakeFromNib()
     }
     
-    func setCollectionViewCell(image: UIImage, title: String) {
+    func setCollectionViewMovieCell(movie: Movie) {
         self.imageView.layer.cornerRadius = 10
-        self.imageView.image = image
-        self.titleLabel.text = title
+        self.imageView.image = movie.posterImage
+        if movie.name == nil {
+            self.titleLabel.text = movie.title
+        } else {
+            self.titleLabel.text = movie.name
+        }
+    }
+
+    func setCollectionViewPersonCell(person: Person) {
+        self.imageView.layer.cornerRadius = 10
+        self.imageView.image = person.profileImage
+        self.titleLabel.text = person.name
     }
 }
