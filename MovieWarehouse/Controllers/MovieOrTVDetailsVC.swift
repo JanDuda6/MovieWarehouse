@@ -10,8 +10,8 @@ import UIKit
 
 class MovieOrTVDetailsVC: UITableViewController {
     private var movieToShow: Movie?
-    private var tvToShow: TV?
-    private var viewModel = MovieDetailsVM()
+    private var personToShow: Person?
+    private var viewModel = MovieOrTVDetailsVM()
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -26,18 +26,8 @@ class MovieOrTVDetailsVC: UITableViewController {
     }
 
     private func changeViewModelClass() {
-        if movieToShow == nil {
-            viewModel = TVDetailsVM()
-            viewModel.setObject(movie: nil, tv: tvToShow)
-            fetchDetails()
-        } else {
-            viewModel.setObject(movie: movieToShow, tv: nil)
-            fetchDetails()
-        }
-    }
-
-    func setTV(tv: TV?) {
-        self.tvToShow = tv
+        viewModel.setMovieOrTV(movie: movieToShow!)
+        movieToShow?.name != nil ? fetchDetails(moviesOrTV: false) : fetchDetails(moviesOrTV: true)
     }
 
     func setMovie(movie: Movie?) {
@@ -56,23 +46,28 @@ extension MovieOrTVDetailsVC {
     }
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let object = viewModel.getObject()
         switch indexPath.section {
         case 0:
             let cell = tableView.dequeueReusableCell(withIdentifier: "Header", for: indexPath) as! HeaderDetailsTableViewCell
-            movieToShow != nil ?   cell.setMovieCell(movie: object.0!) : cell.setTVCell(tv: object.1!)
+            cell.setCell(movie: viewModel.getObject())
             self.tableView.rowHeight = UITableView.automaticDimension
             return cell
         case 1:
             let cell = tableView.dequeueReusableCell(withIdentifier: "MovieOverviewCell", for: indexPath) as! ObjectOverviewCell
-            movieToShow != nil ? cell.setCell(overview: object.0!.overview) : cell.setCell(overview: object.1!.overview)
+            cell.setCell(overview: viewModel.getObject().overview)
             self.tableView.rowHeight = UITableView.automaticDimension
             return cell
         case 2:
             let cell = tableView.dequeueReusableCell(withIdentifier: "CastAndCrewCell", for: indexPath) as! CastAndCrewCollectionView
-            cell.setCellLabel(cellLabelName: "Cast & Crew")
-            cell.setCastAndCrew(castAndCrew: viewModel.getCastAndCrew())
-            self.tableView.rowHeight = 180
+            if viewModel.getCastAndCrew().count == 0 {
+                cell.setCellLabel(cellLabelName: "")
+                self.tableView.rowHeight = 0
+            } else {
+                cell.setCellLabel(cellLabelName: "Cast & Crew")
+                cell.setCastAndCrew(castAndCrew: viewModel.getCastAndCrew())
+                self.tableView.rowHeight = 180
+            }
+            cell.performSegueDelegate = self
             return cell
         case 3:
             let cell = tableView.dequeueReusableCell(withIdentifier: "CastAndCrewCell", for: indexPath) as! CastAndCrewCollectionView
@@ -80,6 +75,7 @@ extension MovieOrTVDetailsVC {
             if providers.count != 0 {
                 cell.setCellLabel(cellLabelName: "Where to watch")
                 cell.setProviders(providers: providers)
+                cell.performSegueDelegate = self
                 self.tableView.rowHeight = 120
             } else {
                 self.tableView.rowHeight = 0
@@ -88,9 +84,15 @@ extension MovieOrTVDetailsVC {
         case 4:
             let cell = tableView.dequeueReusableCell(withIdentifier: "CastAndCrewCell", for: indexPath) as! CastAndCrewCollectionView
             let recommendations = viewModel.getRecommendation()
-            cell.setCellLabel(cellLabelName: "Recommended movies")
-            movieToShow != nil ? cell.setMovies(movies: recommendations.0!) : cell.setTV(tvShows: recommendations.1!)
-            self.tableView.rowHeight = 270
+            if recommendations.count != 0 {
+                cell.setCellLabel(cellLabelName: "Recommended movies")
+                cell.setMovies(movies: recommendations)
+                cell.performSegueDelegate = self
+                self.tableView.rowHeight = 270
+            } else {
+                cell.setCellLabel(cellLabelName: "")
+                self.tableView.rowHeight = 0
+            }
             return cell
         default:
             return UITableViewCell()
@@ -100,24 +102,46 @@ extension MovieOrTVDetailsVC {
 
 //MARK: - Fetch data
 extension MovieOrTVDetailsVC {
-    private func fetchDetails() {
-        viewModel.fetchGenre() { () in
-        }
-        viewModel.fetchCredits() { [self] () in
+    private func fetchDetails(moviesOrTV: Bool) {
+        viewModel.fetchGenre(moviesOrTV: moviesOrTV) { () in
             DispatchQueue.main.async {
                 self.tableView.reloadData()
             }
         }
-        viewModel.fetchProviders() { [self] () in
+        viewModel.fetchCredits(moviesOrTV: moviesOrTV) { [self] () in
             DispatchQueue.main.async {
                 self.tableView.reloadData()
             }
         }
-        viewModel.fetchRecommended() { [self] () in
+        viewModel.fetchProviders(moviesOrTV: moviesOrTV) { [self] () in
             DispatchQueue.main.async {
                 self.tableView.reloadData()
             }
         }
+        viewModel.fetchRecommended(moviesOrTV: moviesOrTV) { [self] () in
+            DispatchQueue.main.async {
+                self.tableView.reloadData()
+            }
+        }
+    }
+}
+//MARK: - Segue delegates
+extension MovieOrTVDetailsVC: PerformSegueDelegate {
+    func didPerformSegueSeeMore(responseURL: String) {}
+
+    func didPerformMovieDetailsSegue(movie: Movie) {
+        self.movieToShow = movie
+        let storyboard = UIStoryboard(name: "Main", bundle: nil)
+        let vc = storyboard.instantiateViewController(withIdentifier: "DetailsVC") as! MovieOrTVDetailsVC
+        vc.setMovie(movie: movieToShow)
+        self.navigationController?.show(vc, sender: nil)
+    }
+
+    func didPerformPersonDetailsSegue(person: Person) {
+        let storyboard = UIStoryboard(name: "PersonDetailsStoryboard", bundle: nil)
+        let vc = storyboard.instantiateViewController(withIdentifier: "PersonDetails") as! PersonDetailsVC
+        vc.setPerson(person: person)
+        self.navigationController?.show(vc, sender: nil)
     }
 }
 

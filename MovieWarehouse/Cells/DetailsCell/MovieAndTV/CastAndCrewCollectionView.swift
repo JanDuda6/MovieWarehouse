@@ -14,13 +14,15 @@ class CastAndCrewCollectionView: UITableViewCell, UICollectionViewDelegate, UICo
     private var castAndCrew = [Person]()
     private var providers = Set<Provider>()
     private var movies = [Movie]()
-    private var tvShows = [TV]()
+
+    var performSegueDelegate: PerformSegueDelegate?
 
     override func awakeFromNib() {
         super.awakeFromNib()
         self.collectionView.delegate = self
         self.collectionView.dataSource = self
         registerCells()
+        addTapGestureToCollectionView()
     }
 
     func setCellLabel(cellLabelName: String) {
@@ -39,10 +41,6 @@ class CastAndCrewCollectionView: UITableViewCell, UICollectionViewDelegate, UICo
         self.movies = movies
     }
 
-    func setTV(tvShows: [TV]) {
-        self.tvShows = tvShows
-    }
-
     private func registerCells() {
         self.collectionView.register(UINib(nibName: "CastAndCrewCollectionViewCell", bundle: nil), forCellWithReuseIdentifier: "CastAndCrewCVCell")
         self.collectionView.register(UINib(nibName: "ProvidersCell", bundle: nil), forCellWithReuseIdentifier: "ProvidersCell")
@@ -52,9 +50,6 @@ class CastAndCrewCollectionView: UITableViewCell, UICollectionViewDelegate, UICo
 
 extension CastAndCrewCollectionView {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        if tvShows.count != 0 {
-            return tvShows.count
-        }
         if movies.count != 0 {
             return movies.count
         }
@@ -81,12 +76,6 @@ extension CastAndCrewCollectionView {
             cell.setImageConstraintsForPosters()
             return cell
         }
-        if tvShows.count != 0 {
-            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "ProvidersCell", for: indexPath) as! ProvidersCell
-            cell.setCell(providerImage: tvShows[indexPath.row].posterImage)
-            cell.setImageConstraintsForPosters()
-            return cell
-        }
         return UICollectionViewCell()
     }
 
@@ -103,5 +92,25 @@ extension CastAndCrewCollectionView {
     override func prepareForReuse() {
         collectionView.contentOffset = .zero
         collectionView.reloadData()
+    }
+}
+//MARK: - Tap Gesture
+extension CastAndCrewCollectionView {
+    private func addTapGestureToCollectionView() {
+        let tap = UITapGestureRecognizer(target: self, action: #selector(self.handleTap(_:)))
+        collectionView.addGestureRecognizer(tap)
+        collectionView.isUserInteractionEnabled = true
+    }
+
+    @objc private func handleTap(_ sender: UITapGestureRecognizer) {
+        if let indexPath = self.collectionView?.indexPathForItem(at: sender.location(in: self.collectionView)) {
+            if movies.count != 0 {
+                performSegueDelegate?.didPerformMovieDetailsSegue(movie: movies[indexPath.row])
+            }
+
+            if castAndCrew.count != 0 {
+                performSegueDelegate?.didPerformPersonDetailsSegue(person: castAndCrew[indexPath.row])
+            }
+        }
     }
 }

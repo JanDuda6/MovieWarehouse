@@ -12,7 +12,6 @@ class SeeAllVM {
     private var imageService: ImageService
     private var movies = [Movie]()
     private var persons = [Person]()
-    private var tvShows = [TV]()
     private var currentPage = 1
     private var totalPages = Int.max
 
@@ -25,7 +24,7 @@ class SeeAllVM {
         guard currentPage < totalPages  else { return }
         let changePageEndpoint = endpoint + "&page=\(currentPage)"
         apiService.performHTTPRequest(request: [changePageEndpoint]) { [self] (data, _, _) in
-            if endpoint.contains("/movie/") {
+            if endpoint.contains("/movie") || endpoint.contains("/tv/") {
                 let movieResponse = apiService.parseMovieResponse(data: data)
                 var results = movieResponse.results
                 totalPages = movieResponse.totalPages
@@ -48,18 +47,6 @@ class SeeAllVM {
                 }
                 persons.append(contentsOf: results)
             }
-
-            if endpoint.contains("/tv/") {
-                let tvResponse = apiService.parseTVResponse(data: data)
-                var results = tvResponse.results
-                totalPages = tvResponse.totalPages
-                currentPage = tvResponse.currentPage + 1
-                for n in 0..<results.count {
-                    results[n].posterImage =
-                        imageService.getImageFromURL(url: imageService.profileURL(pathToImage: results[n].posterPath))
-                }
-                tvShows.append(contentsOf: results)
-            }
             completion()
         }
     }
@@ -70,9 +57,5 @@ class SeeAllVM {
 
     func getPersons() -> [Person] {
         return persons
-    }
-
-    func getTVShows() -> [TV] {
-        return tvShows
     }
 }

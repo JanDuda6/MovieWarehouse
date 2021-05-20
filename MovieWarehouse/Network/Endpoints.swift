@@ -21,6 +21,8 @@ struct Endpoints {
 
     //people endpoints
     static let popularPersonsURL = "https://api.themoviedb.org/3/person/popular?api_key=\(APIKey)"
+    static let personDetails =  "https://api.themoviedb.org/3/person/{person_id}?api_key=\(APIKey)"
+    static let personCredits = "https://api.themoviedb.org/3/person/{person_id}/combined_credits?api_key=\(APIKey)"
 
     //TV endpoints
     static let topRatedTV = "https://api.themoviedb.org/3/tv/top_rated?api_key=\(APIKey)"

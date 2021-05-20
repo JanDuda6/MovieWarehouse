@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="17701" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17703"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <scenes>
+        <!--Person DetailsVC-->
+        <scene sceneID="yTY-WP-ZZ6">
+            <objects>
+                <viewController storyboardIdentifier="PersonDetails" useStoryboardIdentifierAsRestorationIdentifier="YES" id="q2V-BR-tjt" customClass="PersonDetailsVC" customModule="MovieWarehouse" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="bly-BC-hSH">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="4mz-vd-nMv">
+                                <rect key="frame" x="0.0" y="54" width="414" height="272.5"/>
+                                <subviews>
+                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="ZfP-mJ-ZkQ">
+                                        <rect key="frame" x="132" y="0.0" width="150" height="150"/>
+                                        <color key="backgroundColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="150" id="SQq-nA-S5k"/>
+                                            <constraint firstAttribute="height" constant="150" id="fYs-A3-N8k"/>
+                                        </constraints>
+                                    </imageView>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="James Bond" textAlignment="justified" lineBreakMode="tailTruncation" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xeu-64-uQC">
+                                        <rect key="frame" x="156.5" y="160" width="101.5" height="20.5"/>
+                                        <fontDescription key="fontDescription" name="HelveticaNeue-Bold" family="Helvetica Neue" pointSize="17"/>
+                                        <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="1969 - 2020" textAlignment="justified" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7qs-Fa-beC">
+                                        <rect key="frame" x="172" y="190.5" width="70.5" height="15.5"/>
+                                        <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="13"/>
+                                        <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Spy" textAlignment="justified" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fXd-f1-sQu">
+                                        <rect key="frame" x="195.5" y="216" width="23" height="15.5"/>
+                                        <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="13"/>
+                                        <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="oS8-4D-JJp">
+                                        <rect key="frame" x="128.5" y="241.5" width="157" height="32"/>
+                                        <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <segments>
+                                            <segment title="Bography"/>
+                                            <segment title="Movies"/>
+                                        </segments>
+                                        <color key="selectedSegmentTintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <connections>
+                                            <action selector="segmentPushed:" destination="q2V-BR-tjt" eventType="valueChanged" id="gqr-tV-KLp"/>
+                                        </connections>
+                                    </segmentedControl>
+                                </subviews>
+                            </stackView>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="1Qx-o6-ghl">
+                                <rect key="frame" x="0.0" y="346.5" width="414" height="549.5"/>
+                                <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            </tableView>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="3b8-Qw-Zrs"/>
+                        <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="3b8-Qw-Zrs" firstAttribute="trailing" secondItem="4mz-vd-nMv" secondAttribute="trailing" id="07X-Ki-Gi9"/>
+                            <constraint firstAttribute="bottom" secondItem="1Qx-o6-ghl" secondAttribute="bottom" id="5G9-ez-YO6"/>
+                            <constraint firstItem="4mz-vd-nMv" firstAttribute="top" secondItem="3b8-Qw-Zrs" secondAttribute="top" constant="10" id="7Cf-nn-rQr"/>
+                            <constraint firstItem="4mz-vd-nMv" firstAttribute="leading" secondItem="3b8-Qw-Zrs" secondAttribute="leading" id="C8I-mK-kQz"/>
+                            <constraint firstItem="1Qx-o6-ghl" firstAttribute="top" secondItem="4mz-vd-nMv" secondAttribute="bottom" constant="20" id="fVZ-iX-8uc"/>
+                            <constraint firstItem="1Qx-o6-ghl" firstAttribute="leading" secondItem="3b8-Qw-Zrs" secondAttribute="leading" id="fcu-8P-eql"/>
+                            <constraint firstAttribute="trailing" secondItem="1Qx-o6-ghl" secondAttribute="trailing" id="qPG-zc-A9K"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="birthdayLabel" destination="7qs-Fa-beC" id="AaR-yD-rfk"/>
+                        <outlet property="departmentLabel" destination="fXd-f1-sQu" id="FR8-nD-Mbf"/>
+                        <outlet property="nameLabel" destination="xeu-64-uQC" id="eyx-S2-vQC"/>
+                        <outlet property="personImage" destination="ZfP-mJ-ZkQ" id="o1c-pt-DVM"/>
+                        <outlet property="tableView" destination="1Qx-o6-ghl" id="FH1-7T-iKH"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="l1d-Uy-i5j" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-402.89855072463769" y="34.821428571428569"/>
+        </scene>
+    </scenes>
+</document>

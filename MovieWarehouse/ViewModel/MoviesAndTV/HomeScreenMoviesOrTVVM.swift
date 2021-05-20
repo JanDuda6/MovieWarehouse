@@ -8,23 +8,27 @@
 import Foundation
 import UIKit
 
-class HomeScreenMoviesVM {
+class HomeScreenMoviesOrTVVM {
     private let apiService: APIService
     private let imageService: ImageService
     private var movieResponses = [MovieResponse]()
     private var personResponses = [PersonResponse]()
 
-    private let endpoints = [Endpoints.trendingMovies,Endpoints.mostPopularMoviesURL, Endpoints.topRatedMoviesURL, Endpoints.upcomingMoviesURL,Endpoints.nowPlaying, Endpoints.popularPersonsURL]
+    private let movieEndpoints = [Endpoints.trendingMovies,Endpoints.mostPopularMoviesURL, Endpoints.topRatedMoviesURL, Endpoints.upcomingMoviesURL,Endpoints.nowPlaying, Endpoints.popularPersonsURL]
+
+    private let tvEndpoints = [Endpoints.mostPopularTV, Endpoints.topRatedTV, Endpoints.trendingTV, Endpoints.tvOnTheAir]
 
     init(apiService: APIService = APIService(), imageService: ImageService = ImageService()) {
         self.apiService = apiService
         self.imageService = imageService
     }
 
-    func fetchForHomeScreen(completion: @escaping () -> Void) {
+    func fetchForHomeScreen(moviesOrTV: Bool, completion: @escaping () -> Void) {
         var endpointCounter = 0
+        var endpoints = [String]()
+        endpoints = moviesOrTV == true ? movieEndpoints : tvEndpoints
         apiService.performHTTPRequest(request: endpoints) { [self] (data, responseURL, responseCategory)  in
-            if responseURL.contains("/movie/") {
+            if responseURL.contains("/movie") || responseURL.contains("/tv/") {
                 var movieResponse = apiService.parseMovieResponse(data: data)
                 movieResponse.listCategory = StringService.responseTitleToString(string: responseCategory)
                 movieResponse.responseURL = responseURL
@@ -63,12 +67,12 @@ class HomeScreenMoviesVM {
         return movieResponses.count + personResponses.count
     }
     
-    func getMovieResponsesCount() -> Int {
+    func getMovieOrTVResponsesCount() -> Int {
         return movieResponses.count
     }
 
-    func getMoviesOrTVShows(index: Int) -> ([TV]?, [Movie]?) {
-        return (nil ,movieResponses[index].results)
+    func getMoviesOrTVShows(index: Int) -> [Movie] {
+        return movieResponses[index].results
     }
 
     func getPersonFromCastResponse(index: Int) -> [Person] {

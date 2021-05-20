@@ -38,10 +38,6 @@ class APIService {
         return try! decoder.decode(PersonResponse.self, from: data)
     }
 
-    func parseTVResponse(data: Data) -> TVResponse {
-        return try! decoder.decode(TVResponse.self, from: data)
-    }
-
     func parseGenreResponse(data: Data) -> GenreResponse {
         return try! decoder.decode(GenreResponse.self, from: data)
     }
@@ -52,6 +48,14 @@ class APIService {
 
     func parseWatchProvider(data: Data) -> ProvidersResponse {
         return try! decoder.decode(ProvidersResponse.self, from: data)
+    }
+
+    func parsePersonData(data: Data) -> Person {
+        return try! decoder.decode(Person.self, from: data)
+    }
+
+    func parsePersonCastData(data: Data) -> PersonCredits {
+        return try! decoder.decode(PersonCredits.self, from: data)
     }
 }
 

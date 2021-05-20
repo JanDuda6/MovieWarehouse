@@ -21,19 +21,11 @@ class HeaderDetailsTableViewCell: UITableViewCell {
         self.backGroundImage.layer.cornerRadius = 15
     }
 
-    func setMovieCell(movie: Movie) {
+    func setCell(movie: Movie) {
         self.posterImage.image = movie.posterImage
         self.backGroundImage.image = movie.backdropImage
-        self.title.text = movie.title
+        self.title.text = movie.title != nil ? movie.title : movie.name
         self.genre.text = movie.genreMap.joined(separator: ", ")
         self.rateLabel.text = "\(movie.voteAverage)/10 (\(movie.voteCount))"
-    }
-
-    func setTVCell(tv: TV) {
-        self.posterImage.image = tv.posterImage
-        self.backGroundImage.image = tv.backdropImage
-        self.title.text = tv.title
-        self.genre.text = tv.genreMap.joined(separator: ", ")
-        self.rateLabel.text = "\(tv.voteAverage)/10 (\(tv.voteCount))"
     }
 }
