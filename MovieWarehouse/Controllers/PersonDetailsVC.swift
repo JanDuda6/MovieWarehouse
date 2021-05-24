@@ -66,7 +66,7 @@ class PersonDetailsVC: UIViewController {
         self.personImage.image = person.profileImage
         self.nameLabel.text = person.name
         self.departmentLabel.text = person.knownForDepartment
-        self.birthdayLabel.text = person.birthday
+        self.birthdayLabel.text = StringService.dateOfBirthTrimm(birthday: person.birthday ?? "", deathDay: person.deathDay ?? "")
         self.personImage.layer.cornerRadius = personImage.frame.height / 2
     }
 }
@@ -85,19 +85,12 @@ extension PersonDetailsVC: UITableViewDelegate, UITableViewDataSource {
         self.setViewHeader(person: viewModel.getPerson())
         if segmentControllerChanged == true {
             let cell = tableView.dequeueReusableCell(withIdentifier: "BiographyCell", for: indexPath) as! BiographyCell
-            cell.biographyText.text = viewModel.getPerson().biography
+            cell.setBiographyText(person: viewModel.getPerson())
             return cell
         } else {
             let movies = viewModel.getPersonCredits()
             let cell = tableView.dequeueReusableCell(withIdentifier: "KnownForCell", for: indexPath) as! KnownForCell
-            cell.posterCell.image = movies[indexPath.row].posterImage
-            if movies[indexPath.row].name == nil {
-                cell.titleLabel.text = movies[indexPath.row].title
-            } else {
-                cell.titleLabel.text = movies[indexPath.row].name
-            }
-            cell.rateLabel.text = "\(movies[indexPath.row].voteAverage)/10"
-            cell.genreLabel.text = "\(movies[indexPath.row].mediaType ?? ""), \(movies[indexPath.row].premiereDate) "
+            cell.setKnownForCell(movie: movies[indexPath.row])
             return cell
         }
     }

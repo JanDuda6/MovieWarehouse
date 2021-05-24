@@ -26,6 +26,14 @@ struct Movie: Codable, Hashable {
     var firstAirDate: String?
     var premiereDate = ""
 
+    func hash(into hasher: inout Hasher) {
+         hasher.combine(id)
+     }
+
+     static func ==(lhs: Movie, rhs: Movie) -> Bool {
+         return lhs.id == rhs.id
+     }
+
     enum CodingKeys: String, CodingKey {
         case id
         case title

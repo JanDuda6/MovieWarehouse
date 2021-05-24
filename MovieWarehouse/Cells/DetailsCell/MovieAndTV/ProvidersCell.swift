@@ -30,6 +30,6 @@ class ProvidersCell: UICollectionViewCell {
         let widthConstraint = NSLayoutConstraint(item: self.providerImage!, attribute: NSLayoutConstraint.Attribute.width, relatedBy: NSLayoutConstraint.Relation.equal, toItem: nil, attribute: NSLayoutConstraint.Attribute.notAnAttribute, multiplier: 1, constant: 60)
         let heightConstraint = NSLayoutConstraint(item: self.providerImage!, attribute: NSLayoutConstraint.Attribute.height, relatedBy: NSLayoutConstraint.Relation.equal, toItem: nil, attribute: NSLayoutConstraint.Attribute.notAnAttribute, multiplier: 1, constant: 60)
         NSLayoutConstraint.activate([widthConstraint, heightConstraint])
-        self.providerImage.layer.cornerRadius = providerImage.frame.height / 2
+        self.providerImage.layer.cornerRadius = 10
     }
 }

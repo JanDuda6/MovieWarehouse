@@ -18,11 +18,13 @@ struct Endpoints {
     static let nowPlaying = "https://api.themoviedb.org/3/movie/now_playing?api_key=\(APIKey)"
     static let trendingMovies = "https://api.themoviedb.org/3/trending/movie/day?api_key=\(APIKey)"
     static let getRecommendationMovies = "https://api.themoviedb.org/3/movie/{movie_id}/recommendations?api_key=\(APIKey)"
+    static let searchMovies = "https://api.themoviedb.org/3/search/movie?api_key=\(APIKey)&language=en-US"
 
     //people endpoints
     static let popularPersonsURL = "https://api.themoviedb.org/3/person/popular?api_key=\(APIKey)"
     static let personDetails =  "https://api.themoviedb.org/3/person/{person_id}?api_key=\(APIKey)"
     static let personCredits = "https://api.themoviedb.org/3/person/{person_id}/combined_credits?api_key=\(APIKey)"
+    static let searchPerson = "https://api.themoviedb.org/3/search/person?api_key=\(APIKey)&language=en-US"
 
     //TV endpoints
     static let topRatedTV = "https://api.themoviedb.org/3/tv/top_rated?api_key=\(APIKey)"
@@ -30,6 +32,8 @@ struct Endpoints {
     static let tvOnTheAir = "https://api.themoviedb.org/3/tv/on_the_air?api_key=\(APIKey)"
     static let trendingTV = "https://api.themoviedb.org/3/trending/tv/day?api_key=\(APIKey)"
     static let getRecommendationTVShows = "https://api.themoviedb.org/3/tv/{tv_id}/recommendations?api_key=\(APIKey)"
+    static let searchTvShow = "https://api.themoviedb.org/3/search/tv?api_key=\(APIKey)&language=en-US"
+
 
     //Genre lists endpoints
     static let genreMovieList = "https://api.themoviedb.org/3/genre/movie/list?api_key=\(APIKey)"
