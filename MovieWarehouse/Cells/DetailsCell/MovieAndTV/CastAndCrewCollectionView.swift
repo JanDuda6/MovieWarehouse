@@ -80,13 +80,24 @@ extension CastAndCrewCollectionView {
     }
 
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        let width = self.collectionView.bounds.width / 3
-        let height = self.collectionView.frame.height
-        if providers.count != 0 || castAndCrew.count != 0 {
-            return CGSize(width: width, height: height)
-        } else {
-            return CGSize(width: width, height: width * 1.7)
+
+        let screenWidth = UIScreen.main.bounds.size.width
+        var width: CGFloat = 0
+        switch screenWidth {
+        case 375...428:
+            width = (self.collectionView.bounds.width)/3
+        case 429...834:
+            width = (self.collectionView.bounds.width)/4
+        default:
+            width = (self.collectionView.bounds.width)/5
         }
+        var height = self.collectionView.frame.height
+        if providers.count != 0 || castAndCrew.count != 0 {
+            height = self.collectionView.frame.height
+        } else {
+            height = width * 1.7
+        }
+        return CGSize(width: width, height: height)
     }
 
     override func prepareForReuse() {

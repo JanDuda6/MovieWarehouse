@@ -48,7 +48,7 @@ extension HomeVC {
             }
         cell.setTableviewCellLabel(collectionViewLabel: viewModel.getListCategory(index: indexPath.row))
         cell.performSegueDelegate = self
-        self.tableView.rowHeight = cell.frame.height
+        self.tableView.rowHeight = 370
         return cell
     }
 }

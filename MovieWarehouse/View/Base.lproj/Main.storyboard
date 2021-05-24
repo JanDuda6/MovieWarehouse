@@ -136,7 +136,9 @@
                     <tabBarItem key="tabBarItem" title="Movies" image="film" catalog="system" selectedImage="film" id="5hD-6P-V5d">
                         <color key="badgeColor" systemColor="systemOrangeColor"/>
                     </tabBarItem>
-                    <navigationItem key="navigationItem" id="S4t-si-Wto"/>
+                    <navigationItem key="navigationItem" id="S4t-si-Wto">
+                        <barButtonItem key="backBarButtonItem" title="Back" id="VBz-70-vww"/>
+                    </navigationItem>
                     <connections>
                         <segue destination="8qD-M3-X6V" kind="show" identifier="SeeMoreSegue" id="e7W-1h-dVr"/>
                     </connections>
@@ -235,18 +237,65 @@
         <!--Search-->
         <scene sceneID="zfv-9o-W2e">
             <objects>
-                <viewController id="Ojd-BQ-53X" sceneMemberID="viewController">
+                <viewController id="Ojd-BQ-53X" customClass="SearchObjectsVC" customModule="MovieWarehouse" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="mq7-OR-z90">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="725"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <searchBar contentMode="redraw" translatesAutoresizingMaskIntoConstraints="NO" id="1Rr-v6-d0L">
+                                <rect key="frame" x="0.0" y="0.0" width="414" height="56"/>
+                                <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <color key="tintColor" systemColor="systemOrangeColor"/>
+                                <color key="barTintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <textInputTraits key="textInputTraits"/>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="color" keyPath="searchField.textColor">
+                                        <color key="value" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
+                            </searchBar>
+                            <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="Uex-dO-mCi">
+                                <rect key="frame" x="80" y="56" width="254" height="32"/>
+                                <color key="backgroundColor" white="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <segments>
+                                    <segment title="Movies"/>
+                                    <segment title="People"/>
+                                    <segment title="TV Shows"/>
+                                </segments>
+                                <color key="selectedSegmentTintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <connections>
+                                    <action selector="segmentChanged:" destination="Ojd-BQ-53X" eventType="valueChanged" id="0k0-4M-OrI"/>
+                                </connections>
+                            </segmentedControl>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="fCs-h8-eQO">
+                                <rect key="frame" x="0.0" y="92" width="414" height="633"/>
+                                <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            </tableView>
+                        </subviews>
                         <viewLayoutGuide key="safeArea" id="dn8-KE-pav"/>
-                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="dn8-KE-pav" firstAttribute="trailing" secondItem="Uex-dO-mCi" secondAttribute="trailing" constant="80" id="3WB-Cn-5qS"/>
+                            <constraint firstItem="fCs-h8-eQO" firstAttribute="trailing" secondItem="dn8-KE-pav" secondAttribute="trailing" id="9hr-ju-6KN"/>
+                            <constraint firstItem="1Rr-v6-d0L" firstAttribute="leading" secondItem="dn8-KE-pav" secondAttribute="leading" id="K3h-E1-rQc"/>
+                            <constraint firstItem="Uex-dO-mCi" firstAttribute="leading" secondItem="dn8-KE-pav" secondAttribute="leading" constant="80" id="Rn0-6d-mpU"/>
+                            <constraint firstItem="fCs-h8-eQO" firstAttribute="bottom" secondItem="dn8-KE-pav" secondAttribute="bottom" id="WQc-Pf-XnV"/>
+                            <constraint firstItem="1Rr-v6-d0L" firstAttribute="top" secondItem="dn8-KE-pav" secondAttribute="top" id="iI0-N6-LpN"/>
+                            <constraint firstItem="1Rr-v6-d0L" firstAttribute="trailing" secondItem="dn8-KE-pav" secondAttribute="trailing" id="slD-7V-FRj"/>
+                            <constraint firstItem="Uex-dO-mCi" firstAttribute="top" secondItem="1Rr-v6-d0L" secondAttribute="bottom" id="tO0-wl-AkB"/>
+                            <constraint firstItem="fCs-h8-eQO" firstAttribute="top" secondItem="Uex-dO-mCi" secondAttribute="bottom" constant="5" id="v76-Hh-TGw"/>
+                            <constraint firstItem="fCs-h8-eQO" firstAttribute="leading" secondItem="dn8-KE-pav" secondAttribute="leading" id="zR2-yO-Sfj"/>
+                        </constraints>
                     </view>
                     <tabBarItem key="tabBarItem" title="Search" image="magnifyingglass" catalog="system" selectedImage="magnifyingglass" id="eaA-GV-CVW"/>
+                    <connections>
+                        <outlet property="searchBar" destination="1Rr-v6-d0L" id="mCR-nC-PLa"/>
+                        <outlet property="tableView" destination="fCs-h8-eQO" id="ajG-Vx-CI6"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="MLG-RX-Vrw" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-2771" y="76"/>
+            <point key="canvasLocation" x="-2771.0144927536235" y="26.785714285714285"/>
         </scene>
         <!--Movie Warehouse-->
         <scene sceneID="97Y-QZ-0yQ">
@@ -263,9 +312,9 @@
                     </tabBar>
                     <connections>
                         <segue destination="eqX-al-GMS" kind="relationship" relationship="viewControllers" id="JP9-GL-gtb"/>
-                        <segue destination="UhO-Ax-1FB" kind="relationship" relationship="viewControllers" id="Tkj-Ds-ECo"/>
-                        <segue destination="Ojd-BQ-53X" kind="relationship" relationship="viewControllers" id="2Cc-Vc-j33"/>
                         <segue destination="nj3-Ih-BSb" kind="relationship" relationship="viewControllers" id="fJ5-XG-3Dg"/>
+                        <segue destination="Ojd-BQ-53X" kind="relationship" relationship="viewControllers" id="2Cc-Vc-j33"/>
+                        <segue destination="UhO-Ax-1FB" kind="relationship" relationship="viewControllers" id="Tkj-Ds-ECo"/>
                     </connections>
                 </tabBarController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="TU9-be-Kg7" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -464,7 +513,7 @@
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
-        <segue reference="qZN-j7-ZFm"/>
+        <segue reference="abR-4O-gCb"/>
         <segue reference="e7W-1h-dVr"/>
     </inferredMetricsTieBreakers>
     <color key="tintColor" systemColor="systemOrangeColor"/>

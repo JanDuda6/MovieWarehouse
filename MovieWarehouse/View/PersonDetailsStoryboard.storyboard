@@ -45,10 +45,10 @@
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="oS8-4D-JJp">
-                                        <rect key="frame" x="128.5" y="241.5" width="157" height="32"/>
+                                        <rect key="frame" x="125.5" y="241.5" width="163" height="32"/>
                                         <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <segments>
-                                            <segment title="Bography"/>
+                                            <segment title="Biography"/>
                                             <segment title="Movies"/>
                                         </segments>
                                         <color key="selectedSegmentTintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
