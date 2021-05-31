@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct MarkAsFavorite: Codable {
+struct AccountList: Codable {
     var mediaType: String
     var mediaID: Int
     var favorite: Bool?

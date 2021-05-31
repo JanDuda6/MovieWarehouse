@@ -47,14 +47,14 @@ class SessionListsVM {
 
     func addToList(addToWatchList: Bool, addORDeleteFromList: Bool, movie: Movie, completion: @escaping () -> Void) {
         let mediaType = movie.name == nil ? "movie" : "tv"
-        let favorite: MarkAsFavorite
+        let favorite: AccountList
         let endpoint: String
         if addToWatchList == true {
             endpoint = createEndpoint(endpoint: PostEndpoints.postWatchList)
-            favorite = MarkAsFavorite(mediaType: mediaType, mediaID: movie.id, watchList: addORDeleteFromList)
+            favorite = AccountList(mediaType: mediaType, mediaID: movie.id, watchList: addORDeleteFromList)
         } else {
             endpoint = createEndpoint(endpoint: PostEndpoints.postMarkAsFavorite)
-            favorite = MarkAsFavorite(mediaType: mediaType, mediaID: movie.id, favorite: addORDeleteFromList)
+            favorite = AccountList(mediaType: mediaType, mediaID: movie.id, favorite: addORDeleteFromList)
         }
         addMovieToFavoriteUsersDefaults(addToWatchList: addToWatchList, addToList: addORDeleteFromList, movie: movie)
         let data = apiService.parseMarkAsFavoriteToData(modelToUpload: favorite)

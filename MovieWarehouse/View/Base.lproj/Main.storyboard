@@ -221,7 +221,7 @@
         <!--My Lists-->
         <scene sceneID="Ga4-cM-Ks4">
             <objects>
-                <viewController id="UhO-Ax-1FB" sceneMemberID="viewController">
+                <viewController id="UhO-Ax-1FB" customClass="UsersListsVC" customModule="MovieWarehouse" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="PTd-Tb-pbn">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="725"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -237,6 +237,9 @@
                                             <segment title="TV Shows"/>
                                         </segments>
                                         <color key="selectedSegmentTintColor" systemColor="systemGray6Color"/>
+                                        <connections>
+                                            <action selector="moviesOrTVSegment:" destination="UhO-Ax-1FB" eventType="valueChanged" id="d1F-gN-eX6"/>
+                                        </connections>
                                     </segmentedControl>
                                     <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="1aY-Zk-kIR">
                                         <rect key="frame" x="58" y="39" width="278" height="32"/>
@@ -247,6 +250,9 @@
                                             <segment title="Rated"/>
                                         </segments>
                                         <color key="selectedSegmentTintColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <connections>
+                                            <action selector="categorySegment:" destination="UhO-Ax-1FB" eventType="valueChanged" id="aBH-U3-ecz"/>
+                                        </connections>
                                     </segmentedControl>
                                 </subviews>
                             </stackView>
@@ -268,6 +274,9 @@
                         </constraints>
                     </view>
                     <tabBarItem key="tabBarItem" title="My Lists" image="person" catalog="system" selectedImage="list.bullet.rectangle" id="YGx-zu-iyv"/>
+                    <connections>
+                        <outlet property="tableView" destination="Xer-Ar-sJR" id="X8f-hi-a5a"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="P6h-tT-q3E" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
@@ -295,7 +304,7 @@
                             </searchBar>
                             <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="Uex-dO-mCi">
                                 <rect key="frame" x="80" y="51" width="254" height="32"/>
-                                <color key="backgroundColor" white="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <segments>
                                     <segment title="Movies"/>
                                     <segment title="People"/>
