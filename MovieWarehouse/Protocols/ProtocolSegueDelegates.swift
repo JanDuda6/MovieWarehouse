@@ -12,3 +12,8 @@ protocol PerformSegueDelegate {
     func didPerformMovieDetailsSegue(movie: Movie)
     func didPerformPersonDetailsSegue(person: Person)
 }
+
+protocol PerformSessionDeleagte {
+    func shouldStartSession(requestToken: String)
+}
+

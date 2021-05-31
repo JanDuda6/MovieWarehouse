@@ -11,7 +11,7 @@ import XCTest
 
 class MockApiService: APIService {
 
-    override func performHTTPRequest(request: [String], completion: @escaping (Data, String, String) -> Void) {
+    override func performGetHTTPRequest(request: [String], completion: @escaping (Data, String, String) -> Void) {
         for n in 0..<2 {
             let data = Data()
             var responseURL = ""

@@ -30,16 +30,16 @@ class SearchObjectsVM {
         let page = "&page=\(currentPage)"
         switch segment {
         case "TV":
-            endpoint = Endpoints.searchTvShow
+            endpoint = GetEndpoints.searchTvShow
         case "Movie":
-            endpoint = Endpoints.searchMovies
+            endpoint = GetEndpoints.searchMovies
         case "Person":
-            endpoint = Endpoints.searchPerson
+            endpoint = GetEndpoints.searchPerson
         default:
             break
         }
         endpoint = endpoint + query + page
-        apiService.performHTTPRequest(request: [endpoint]) { [self] (data, _, _) in
+        apiService.performGetHTTPRequest(request: [endpoint]) { [self] (data, _, _) in
             if segment != "Person" {
                 let movieResponse = apiService.parseMovieResponse(data: data)
                 var results = movieResponse.results

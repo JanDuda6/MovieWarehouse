@@ -25,8 +25,8 @@ class PersonDetailsVM {
 
     func fetchData(completion: @escaping () -> Void) {
         guard let person = person else { return }
-        let endpoint = Endpoints.personDetails.replacingOccurrences(of: "{person_id}", with: String(person.id))
-        apiService.performHTTPRequest(request: [endpoint]) { [self] (data, _, _) in
+        let endpoint = GetEndpoints.personDetails.replacingOccurrences(of: "{person_id}", with: String(person.id))
+        apiService.performGetHTTPRequest(request: [endpoint]) { [self] (data, _, _) in
             var personFromData = apiService.parsePersonData(data: data)
             personFromData.profileImage = person.profileImage
             self.person = personFromData
@@ -36,8 +36,8 @@ class PersonDetailsVM {
 
     func fetchPersonCredits(completion: @escaping () -> Void) {
         guard let person = person else { return }
-        let endpoint = Endpoints.personCredits.replacingOccurrences(of: "{person_id}", with: String(person.id))
-        apiService.performHTTPRequest(request: [endpoint]) { [self] (data, _, _) in
+        let endpoint = GetEndpoints.personCredits.replacingOccurrences(of: "{person_id}", with: String(person.id))
+        apiService.performGetHTTPRequest(request: [endpoint]) { [self] (data, _, _) in
             let personCreditsResponse = apiService.parsePersonCastData(data: data)
 
             var movieArray = [Movie]()

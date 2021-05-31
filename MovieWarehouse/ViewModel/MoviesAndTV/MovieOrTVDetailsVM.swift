@@ -29,8 +29,8 @@ class MovieOrTVDetailsVM {
     func fetchGenre(moviesOrTV: Bool, completion: @escaping () -> Void) {
         guard let movie = movie else { return }
         var endpoint = [String]()
-        endpoint = moviesOrTV ==  true ? [Endpoints.genreMovieList] : [Endpoints.genreTVList]
-        apiService?.performHTTPRequest(request: endpoint, completion: { [self] (data, _, _) in
+        endpoint = moviesOrTV ==  true ? [GetEndpoints.genreMovieList] : [GetEndpoints.genreTVList]
+        apiService?.performGetHTTPRequest(request: endpoint, completion: { [self] (data, _, _) in
             self.movie!.backdropImage = imageService.getImageFromURL(url: imageService.profileURL(pathToImage: movie.backdropPath))
             let dataParsed = apiService?.parseGenreResponse(data: data)
             let genreList = dataParsed!.genres
@@ -50,11 +50,11 @@ class MovieOrTVDetailsVM {
         guard var movie = movie else { return }
         var endpoint = [String]()
         if moviesOrTV ==  true {
-            endpoint = [Endpoints.movieCredits.replacingOccurrences(of: "{movie_id}", with: String(movie.id))]
+            endpoint = [GetEndpoints.movieCredits.replacingOccurrences(of: "{movie_id}", with: String(movie.id))]
         } else {
-            endpoint = [Endpoints.TVCredits.replacingOccurrences(of: "{tv_id}", with: String(movie.id))]
+            endpoint = [GetEndpoints.TVCredits.replacingOccurrences(of: "{tv_id}", with: String(movie.id))]
         }
-        apiService?.performHTTPRequest(request: endpoint) { [self] (data, _, _) in
+        apiService?.performGetHTTPRequest(request: endpoint) { [self] (data, _, _) in
             guard let creditsResponse = apiService?.parseCastResponse(data: data) else { return }
             
             for n in 0..<creditsResponse.cast.count {
@@ -80,11 +80,11 @@ class MovieOrTVDetailsVM {
         guard let movie = movie else { return }
         var endpoint = [String]()
         if moviesOrTV ==  true {
-            endpoint = [Endpoints.watchProvidersMovies.replacingOccurrences(of: "{movie_id}", with: String(movie.id))]
+            endpoint = [GetEndpoints.watchProvidersMovies.replacingOccurrences(of: "{movie_id}", with: String(movie.id))]
         } else {
-            endpoint = [Endpoints.watchProvidersTVs.replacingOccurrences(of: "{tv_id}", with: String(movie.id))]
+            endpoint = [GetEndpoints.watchProvidersTVs.replacingOccurrences(of: "{tv_id}", with: String(movie.id))]
         }
-        apiService?.performHTTPRequest(request: endpoint) { [self] (data, _, _) in
+        apiService?.performGetHTTPRequest(request: endpoint) { [self] (data, _, _) in
             guard let watchProvidersResponse = apiService?.parseWatchProvider(data: data) else { return }
             guard let responseResult = watchProvidersResponse.results else { return }
             guard let providers = responseResult.PL else {return}
@@ -104,11 +104,11 @@ class MovieOrTVDetailsVM {
         guard let movie = movie else { return }
             var endpoint = [String]()
             if moviesOrTV ==  true {
-                endpoint = [Endpoints.getRecommendationMovies.replacingOccurrences(of: "{movie_id}", with: String(movie.id))]
+                endpoint = [GetEndpoints.getRecommendationMovies.replacingOccurrences(of: "{movie_id}", with: String(movie.id))]
             } else {
-                endpoint = [Endpoints.getRecommendationTVShows.replacingOccurrences(of: "{tv_id}", with: String(movie.id))]
+                endpoint = [GetEndpoints.getRecommendationTVShows.replacingOccurrences(of: "{tv_id}", with: String(movie.id))]
             }
-        apiService?.performHTTPRequest(request: endpoint) { [self] (data, _, _) in
+        apiService?.performGetHTTPRequest(request: endpoint) { [self] (data, _, _) in
             guard var recommendedResponse = apiService?.parseMovieResponse(data: data) else { return }
             for n in 0..<recommendedResponse.results.count {
                 recommendedResponse.results[n].posterImage = imageService.getImageFromURL(url: imageService.profileURL(pathToImage: recommendedResponse.results[n].posterPath))

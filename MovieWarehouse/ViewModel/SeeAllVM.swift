@@ -23,7 +23,7 @@ class SeeAllVM {
     func fetchSeeMore(endpoint: String, completion: @escaping () -> Void) {
         guard currentPage < totalPages  else { return }
         let changePageEndpoint = endpoint + "&page=\(currentPage)"
-        apiService.performHTTPRequest(request: [changePageEndpoint]) { [self] (data, _, _) in
+        apiService.performGetHTTPRequest(request: [changePageEndpoint]) { [self] (data, _, _) in
             if endpoint.contains("/movie") || endpoint.contains("/tv/") {
                 let movieResponse = apiService.parseMovieResponse(data: data)
                 var results = movieResponse.results
