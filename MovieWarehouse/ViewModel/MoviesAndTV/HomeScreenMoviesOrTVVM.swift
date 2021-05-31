@@ -14,9 +14,9 @@ class HomeScreenMoviesOrTVVM {
     private var movieResponses = [MovieResponse]()
     private var personResponses = [PersonResponse]()
 
-    private let movieEndpoints = [Endpoints.trendingMovies,Endpoints.mostPopularMoviesURL, Endpoints.topRatedMoviesURL, Endpoints.upcomingMoviesURL,Endpoints.nowPlaying, Endpoints.popularPersonsURL]
+    private let movieEndpoints = [GetEndpoints.trendingMovies,GetEndpoints.mostPopularMoviesURL, GetEndpoints.topRatedMoviesURL, GetEndpoints.upcomingMoviesURL,GetEndpoints.nowPlaying, GetEndpoints.popularPersonsURL]
 
-    private let tvEndpoints = [Endpoints.mostPopularTV, Endpoints.topRatedTV, Endpoints.trendingTV, Endpoints.tvOnTheAir]
+    private let tvEndpoints = [GetEndpoints.mostPopularTV, GetEndpoints.topRatedTV, GetEndpoints.trendingTV, GetEndpoints.tvOnTheAir]
 
     init(apiService: APIService = APIService(), imageService: ImageService = ImageService()) {
         self.apiService = apiService
@@ -27,7 +27,7 @@ class HomeScreenMoviesOrTVVM {
         var endpointCounter = 0
         var endpoints = [String]()
         endpoints = moviesOrTV == true ? movieEndpoints : tvEndpoints
-        apiService.performHTTPRequest(request: endpoints) { [self] (data, responseURL, responseCategory)  in
+        apiService.performGetHTTPRequest(request: endpoints) { [self] (data, responseURL, responseCategory)  in
             if responseURL.contains("/movie") || responseURL.contains("/tv/") {
                 var movieResponse = apiService.parseMovieResponse(data: data)
                 movieResponse.listCategory = StringService.responseTitleToString(string: responseCategory)

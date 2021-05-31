@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="17701" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="g70-68-8ML">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="18122" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="g70-68-8ML">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17703"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="18093"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="collection view cell content view" minToolsVersion="11.0"/>
@@ -19,7 +19,7 @@
                         <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <prototypes>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleAspectFit" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" reuseIdentifier="HomeScreenCell" rowHeight="410" id="JaA-Ed-6MR" customClass="HomeScreenCell" customModule="MovieWarehouse" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="28" width="414" height="410"/>
+                                <rect key="frame" x="0.0" y="24.5" width="414" height="410"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="JaA-Ed-6MR" id="5oz-hW-L87" customClass="HomeCollectionCell" customModule="MovieWarehouse" customModuleProvider="target">
                                     <rect key="frame" x="0.0" y="0.0" width="414" height="410"/>
@@ -218,21 +218,60 @@
             </objects>
             <point key="canvasLocation" x="-1928" y="-1301"/>
         </scene>
-        <!--Account-->
+        <!--My Lists-->
         <scene sceneID="Ga4-cM-Ks4">
             <objects>
                 <viewController id="UhO-Ax-1FB" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="PTd-Tb-pbn">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="725"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="l33-f6-j77">
+                                <rect key="frame" x="10" y="0.0" width="394" height="70"/>
+                                <subviews>
+                                    <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="wVf-Mw-8Dc">
+                                        <rect key="frame" x="116.5" y="0.0" width="161" height="32"/>
+                                        <color key="backgroundColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <segments>
+                                            <segment title="Movies"/>
+                                            <segment title="TV Shows"/>
+                                        </segments>
+                                        <color key="selectedSegmentTintColor" systemColor="systemGray6Color"/>
+                                    </segmentedControl>
+                                    <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="1aY-Zk-kIR">
+                                        <rect key="frame" x="58" y="39" width="278" height="32"/>
+                                        <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <segments>
+                                            <segment title="Favorite"/>
+                                            <segment title="Must Watch"/>
+                                            <segment title="Rated"/>
+                                        </segments>
+                                        <color key="selectedSegmentTintColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                    </segmentedControl>
+                                </subviews>
+                            </stackView>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="Xer-Ar-sJR">
+                                <rect key="frame" x="0.0" y="85" width="414" height="640"/>
+                                <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            </tableView>
+                        </subviews>
                         <viewLayoutGuide key="safeArea" id="7Js-JQ-PqH"/>
-                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="7Js-JQ-PqH" firstAttribute="trailing" secondItem="l33-f6-j77" secondAttribute="trailing" constant="10" id="2f8-Cm-a16"/>
+                            <constraint firstItem="l33-f6-j77" firstAttribute="leading" secondItem="7Js-JQ-PqH" secondAttribute="leading" constant="10" id="EE1-qW-oy6"/>
+                            <constraint firstItem="Xer-Ar-sJR" firstAttribute="trailing" secondItem="7Js-JQ-PqH" secondAttribute="trailing" id="LjW-1g-hEI"/>
+                            <constraint firstItem="Xer-Ar-sJR" firstAttribute="leading" secondItem="7Js-JQ-PqH" secondAttribute="leading" id="Ypw-Tt-kPT"/>
+                            <constraint firstItem="l33-f6-j77" firstAttribute="top" secondItem="7Js-JQ-PqH" secondAttribute="top" id="e2f-Ce-KHb"/>
+                            <constraint firstItem="Xer-Ar-sJR" firstAttribute="bottom" secondItem="7Js-JQ-PqH" secondAttribute="bottom" id="hlZ-df-5lt"/>
+                            <constraint firstItem="Xer-Ar-sJR" firstAttribute="top" secondItem="l33-f6-j77" secondAttribute="bottom" constant="15" id="znR-xl-fIQ"/>
+                        </constraints>
                     </view>
-                    <tabBarItem key="tabBarItem" title="Account" image="person" catalog="system" selectedImage="person" id="YGx-zu-iyv"/>
+                    <tabBarItem key="tabBarItem" title="My Lists" image="person" catalog="system" selectedImage="list.bullet.rectangle" id="YGx-zu-iyv"/>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="P6h-tT-q3E" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-2771" y="764"/>
+            <point key="canvasLocation" x="-2771.0144927536235" y="763.39285714285711"/>
         </scene>
         <!--Search-->
         <scene sceneID="zfv-9o-W2e">
@@ -243,7 +282,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <searchBar contentMode="redraw" translatesAutoresizingMaskIntoConstraints="NO" id="1Rr-v6-d0L">
-                                <rect key="frame" x="0.0" y="0.0" width="414" height="56"/>
+                                <rect key="frame" x="0.0" y="0.0" width="414" height="51"/>
                                 <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <color key="tintColor" systemColor="systemOrangeColor"/>
                                 <color key="barTintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -255,7 +294,7 @@
                                 </userDefinedRuntimeAttributes>
                             </searchBar>
                             <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="Uex-dO-mCi">
-                                <rect key="frame" x="80" y="56" width="254" height="32"/>
+                                <rect key="frame" x="80" y="51" width="254" height="32"/>
                                 <color key="backgroundColor" white="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <segments>
                                     <segment title="Movies"/>
@@ -268,7 +307,7 @@
                                 </connections>
                             </segmentedControl>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="fCs-h8-eQO">
-                                <rect key="frame" x="0.0" y="92" width="414" height="633"/>
+                                <rect key="frame" x="0.0" y="87" width="414" height="638"/>
                                 <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             </tableView>
                         </subviews>
@@ -353,7 +392,7 @@
                         <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <prototypes>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" reuseIdentifier="HomeScreenCell" rowHeight="402" id="xdC-IF-DQs" customClass="HomeScreenCell" customModule="MovieWarehouse" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="28" width="414" height="402"/>
+                                <rect key="frame" x="0.0" y="24.5" width="414" height="402"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="xdC-IF-DQs" id="fms-ds-fMO" customClass="HomeCollectionCell" customModule="MovieWarehouse" customModuleProvider="target">
                                     <rect key="frame" x="0.0" y="0.0" width="414" height="402"/>
@@ -491,7 +530,7 @@
                         <color key="sectionIndexBackgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <prototypes>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="SomeCell" id="E1B-xo-6Mp">
-                                <rect key="frame" x="0.0" y="28" width="414" height="43.5"/>
+                                <rect key="frame" x="0.0" y="24.5" width="414" height="43.5"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="E1B-xo-6Mp" id="Qul-zn-Ncs">
                                     <rect key="frame" x="0.0" y="0.0" width="414" height="43.5"/>
@@ -519,11 +558,12 @@
     <color key="tintColor" systemColor="systemOrangeColor"/>
     <resources>
         <image name="film" catalog="system" width="128" height="93"/>
+        <image name="list.bullet.rectangle" catalog="system" width="128" height="93"/>
         <image name="magnifyingglass" catalog="system" width="128" height="115"/>
         <image name="person" catalog="system" width="128" height="117"/>
         <image name="tv" catalog="system" width="128" height="97"/>
-        <systemColor name="systemBackgroundColor">
-            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        <systemColor name="systemGray6Color">
+            <color red="0.94901960784313721" green="0.94901960784313721" blue="0.96862745098039216" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
         <systemColor name="systemOrangeColor">
             <color red="1" green="0.58431372549019611" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>

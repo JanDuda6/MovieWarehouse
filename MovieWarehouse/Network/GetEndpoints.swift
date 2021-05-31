@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct Endpoints {
+struct GetEndpoints {
 
     // movies endpoints
     private static let APIKey = "8e1e8bf8317030f59d29f5d495ea6978"
@@ -34,7 +34,6 @@ struct Endpoints {
     static let getRecommendationTVShows = "https://api.themoviedb.org/3/tv/{tv_id}/recommendations?api_key=\(APIKey)"
     static let searchTvShow = "https://api.themoviedb.org/3/search/tv?api_key=\(APIKey)&language=en-US"
 
-
     //Genre lists endpoints
     static let genreMovieList = "https://api.themoviedb.org/3/genre/movie/list?api_key=\(APIKey)"
     static let genreTVList = "https://api.themoviedb.org/3/genre/tv/list?api_key=\(APIKey)"
@@ -43,11 +42,13 @@ struct Endpoints {
     static let movieCredits = "https://api.themoviedb.org/3/movie/{movie_id}/credits?api_key=\(APIKey)"
     static let TVCredits = "https://api.themoviedb.org/3/tv/{tv_id}/credits?api_key=\(APIKey)"
 
-
     //Watch Providers endpoints
     static let watchProvidersMovies = "https://api.themoviedb.org/3/movie/{movie_id}/watch/providers?api_key=\(APIKey)"
     static let watchProvidersTVs = "https://api.themoviedb.org/3/tv/{tv_id}/watch/providers?api_key=\(APIKey)"
 
+    //Session request
+    static let getSessionRequestToken = "https://api.themoviedb.org/3/authentication/token/new?api_key=\(APIKey)"
+    static let getAccountDetails = "https://api.themoviedb.org/3/account?api_key=\(APIKey)"
 }
 
 

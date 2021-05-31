@@ -7,11 +7,14 @@
 
 import Foundation
 import UIKit
+import AuthenticationServices
 
-class MovieOrTVDetailsVC: UITableViewController {
+class MovieOrTVDetailsVC: UITableViewController, ASWebAuthenticationPresentationContextProviding {
     private var movieToShow: Movie?
     private var personToShow: Person?
     private var viewModel = MovieOrTVDetailsVM()
+    private var sessionViewModel = SessionListsVM()
+    var authSession: ASWebAuthenticationSession!
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -35,6 +38,21 @@ class MovieOrTVDetailsVC: UITableViewController {
     }
 }
 
+extension MovieOrTVDetailsVC: PerformSessionDeleagte {
+    func shouldStartSession(requestToken: String) {
+        guard let authURL = URL(string: sessionViewModel.authorizeRequestToken(requestToken: requestToken)) else { return }
+        let scheme = "moviewarehouse"
+        authSession = ASWebAuthenticationSession(url: authURL, callbackURLScheme: scheme) { [self] callbackURL, error in
+            sessionViewModel.getSessionID(requestToken: requestToken)
+        }
+        authSession.presentationContextProvider = self
+        authSession.start()
+    }
+    func presentationAnchor(for session: ASWebAuthenticationSession) -> ASPresentationAnchor {
+        return view.window!
+    }
+}
+
 //MARK: - TableView
 extension MovieOrTVDetailsVC {
     override func numberOfSections(in tableView: UITableView) -> Int {
@@ -50,6 +68,7 @@ extension MovieOrTVDetailsVC {
         case 0:
             let cell = tableView.dequeueReusableCell(withIdentifier: "Header", for: indexPath) as! HeaderDetailsTableViewCell
             cell.setCell(movie: viewModel.getObject())
+            cell.performSession = self
             self.tableView.rowHeight = UITableView.automaticDimension
             return cell
         case 1:

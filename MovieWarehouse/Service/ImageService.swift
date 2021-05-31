@@ -12,7 +12,7 @@ class ImageService {
     
      func profileURL(pathToImage: String?) -> URL? {
          guard let imagePath = pathToImage else { return nil }
-         return URL(string: "\(Endpoints.imagePathURL)\(imagePath)")
+         return URL(string: "\(GetEndpoints.imagePathURL)\(imagePath)")
      }
 
     func getImageFromURL(url: URL?) -> UIImage {
