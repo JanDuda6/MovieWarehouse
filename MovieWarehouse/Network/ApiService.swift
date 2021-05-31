@@ -49,7 +49,7 @@ class APIService {
         return try! decoder.decode(Alert.self, from: data)
     }
 
-    func parseMarkAsFavoriteToData(modelToUpload: MarkAsFavorite) -> Data {
+    func parseMarkAsFavoriteToData(modelToUpload: AccountList) -> Data {
         return try! JSONEncoder().encode(modelToUpload)
     }
 

@@ -49,6 +49,14 @@ struct GetEndpoints {
     //Session request
     static let getSessionRequestToken = "https://api.themoviedb.org/3/authentication/token/new?api_key=\(APIKey)"
     static let getAccountDetails = "https://api.themoviedb.org/3/account?api_key=\(APIKey)"
+
+    //Favorite lists
+    static let getLists = "https://api.themoviedb.org/3/account/{account_id}/{category}/{media}?api_key=\(APIKey)&session_id={sessionID}&sort_by=created_at.asc"
+//    static let getFavoriteTVShows = "https://api.themoviedb.org/3/account/{account_id}/favorite/tv?api_key=\(APIKey)&sort_by=created_at.asc"
+//
+//    //Must watch lists
+//    static let getMustWatchMovies = "https://api.themoviedb.org/3/account/{account_id}/watchlist/movies?api_key=\(APIKey)&sort_by=created_at.asc"
+//    static let getMustWatchTVShows = "https://api.themoviedb.org/3/account/{account_id}/watchlist/tv?api_key=\(APIKey)&sort_by=created_at.asc"
 }
 
 
