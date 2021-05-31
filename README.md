@@ -8,8 +8,8 @@ The app follows the MVVM architectural pattern
   - movie, tv show and people deatail screen
 - Search
   - movies, tv shows and people 
-- Lists (in progress)
+- Lists 
   - creating favorite and must watch lists
-  - rating movies and TV show
+  - rating movies and TV show (in progress)
 
      
