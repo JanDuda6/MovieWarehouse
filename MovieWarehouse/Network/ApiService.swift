@@ -8,7 +8,7 @@
 import Foundation
 
 class APIService {
-  private let decoder = JSONDecoder()
+    private let decoder = JSONDecoder()
 
     func performGetHTTPRequest(request: [String], completion: @escaping (Data, String, String) -> Void ) {
         for endpoint in request {
@@ -30,10 +30,10 @@ class APIService {
         }
     }
 
-    func performPostHTTPRequest(data: Data, stringURL: String, completion: @escaping (Data) -> Void ) {
+    func performPostHTTPRequest(data: Data, stringURL: String, completion: @escaping (Data) -> Void) {
         guard let url = URL(string: stringURL) else { return }
         var request = URLRequest(url: url)
-        request.setValue("application/json;charset=utf-8", forHTTPHeaderField: "Content-Type")  // the request is JSON
+        request.setValue("application/json;charset=utf-8", forHTTPHeaderField: "Content-Type")
         request.setValue("application/json;charset=utf-8", forHTTPHeaderField: "Accept")
         request.httpMethod = "POST"
         request.httpBody = data
@@ -45,8 +45,25 @@ class APIService {
         task.resume()
     }
 
-    func parseAlert(data: Data) -> Alert {
-        return try! decoder.decode(Alert.self, from: data)
+    func performDeleteHTTPRequest(url: String, completion: @escaping (Data) -> Void) {
+        guard let url = URL(string: url) else { return }
+        var request = URLRequest(url: url)
+        request.setValue("application/json;charset=utf-8", forHTTPHeaderField: "Content-Type")
+        request.setValue("application/json;charset=utf-8", forHTTPHeaderField: "Accept")
+        request.httpMethod = "DELETE"
+        let urlSession = URLSession.shared
+        let task = urlSession.dataTask(with: request) { (data, response, error) in
+            guard let data = data else { return }
+            completion(data)
+        }
+        task.resume()
+    }
+}
+
+//MARK: - Encode
+extension APIService {
+func parseRatingToData(rating: Rate) -> Data {
+        return try! JSONEncoder().encode(rating)
     }
 
     func parseMarkAsFavoriteToData(modelToUpload: AccountList) -> Data {
@@ -56,11 +73,22 @@ class APIService {
     func parseRequestTokenToData(modelToUpload: RequestToken) -> Data {
         return try! JSONEncoder().encode(modelToUpload)
     }
+}
 
-    func parseAccountDetails(data: Data) -> AccountDetails {
-        return try! decoder.decode(AccountDetails.self, from: data)
+//MARK: - Decode
+extension APIService {
+    func parseAccountDetails(data: Data) -> AccountDetails? {
+        do {
+            return try decoder.decode(AccountDetails.self, from: data)
+        } catch {
+            return nil
+        }
     }
-    
+
+    func parseAlert(data: Data) -> Alert {
+        return try! decoder.decode(Alert.self, from: data)
+    }
+
     func parseMovieResponse(data: Data) -> MovieResponse {
         return try! decoder.decode(MovieResponse.self, from: data)
     }
@@ -84,7 +112,7 @@ class APIService {
     func parsePersonData(data: Data) -> Person {
         return try! decoder.decode(Person.self, from: data)
     }
-
+    
     func parsePersonCastData(data: Data) -> PersonCredits {
         return try! decoder.decode(PersonCredits.self, from: data)
     }
@@ -93,9 +121,11 @@ class APIService {
         return try! decoder.decode(RequestToken.self, from: data)
     }
 
-    func parseSession(data: Data) -> Session {
-        return try! decoder.decode(Session.self, from: data)
+    func parseSession(data: Data) -> Session? {
+        do {
+            return try decoder.decode(Session.self, from: data)
+        } catch {
+            return nil
+        }
     }
 }
-
-

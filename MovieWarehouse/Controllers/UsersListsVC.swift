@@ -7,20 +7,24 @@
 
 import Foundation
 import UIKit
+import AuthenticationServices
 
-
-class UsersListsVC: UIViewController {
-
+class UsersListsVC: UIViewController, ASWebAuthenticationPresentationContextProviding {
     @IBOutlet weak var tableView: UITableView!
-    private let viewModel = UsersListsVM()
+    private let viewModel = AllUsersListsVM()
+    private let sessionVM = SessionVM()
     private var movieLists = true
+    var authSession: ASWebAuthenticationSession!
 
     override func viewDidLoad() {
         super.viewDidLoad()
         self.tableView.delegate = self
         self.tableView.dataSource = self
         registerCell()
-        fetchData()
+    }
+
+    override func viewDidAppear(_ animated: Bool) {
+        checkIfSessionExists()
     }
 
     @IBAction func moviesOrTVSegment(_ sender: UISegmentedControl) {
@@ -62,6 +66,21 @@ class UsersListsVC: UIViewController {
             }
         }
     }
+
+    func checkIfSessionExists() {
+        if sessionVM.checkIfSessionIDExists() == false {
+            let scheme = "moviewarehouse"
+            let endpoint = sessionVM.getAuthEndpoint()
+            guard let authURL = URL(string: endpoint) else { return }
+            authSession = ASWebAuthenticationSession(url: authURL, callbackURLScheme: scheme) { [self] callbackURL, error in
+                sessionVM.getSessionID()
+            }
+            authSession.presentationContextProvider = self
+            authSession.start()
+        } else {
+            fetchData()
+        }
+    }
 }
 
 //MARK: - Table View
@@ -91,5 +110,11 @@ extension UsersListsVC: UITableViewDelegate, UITableViewDataSource {
 
     func registerCell() {
         tableView.register(UINib(nibName: "KnownForCell", bundle: nil), forCellReuseIdentifier: "KnownForCell")
+    }
+}
+
+extension UsersListsVC {
+    func presentationAnchor(for session: ASWebAuthenticationSession) -> ASPresentationAnchor {
+        return view.window!
     }
 }

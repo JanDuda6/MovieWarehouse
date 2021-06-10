@@ -7,7 +7,7 @@
 
 import Foundation
 
-class UsersListsVM {
+class AllUsersListsVM {
     private var apiService: APIService
     private var imageService: ImageService
     private var movies = [Movie]()

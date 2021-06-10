@@ -256,7 +256,7 @@
                                     </segmentedControl>
                                 </subviews>
                             </stackView>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="Xer-Ar-sJR">
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="Xer-Ar-sJR">
                                 <rect key="frame" x="0.0" y="85" width="414" height="640"/>
                                 <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             </tableView>
@@ -273,7 +273,7 @@
                             <constraint firstItem="Xer-Ar-sJR" firstAttribute="top" secondItem="l33-f6-j77" secondAttribute="bottom" constant="15" id="znR-xl-fIQ"/>
                         </constraints>
                     </view>
-                    <tabBarItem key="tabBarItem" title="My Lists" image="person" catalog="system" selectedImage="list.bullet.rectangle" id="YGx-zu-iyv"/>
+                    <tabBarItem key="tabBarItem" title="My Lists" image="list.bullet.rectangle" catalog="system" selectedImage="list.bullet.rectangle" id="YGx-zu-iyv"/>
                     <connections>
                         <outlet property="tableView" destination="Xer-Ar-sJR" id="X8f-hi-a5a"/>
                     </connections>
@@ -315,7 +315,7 @@
                                     <action selector="segmentChanged:" destination="Ojd-BQ-53X" eventType="valueChanged" id="0k0-4M-OrI"/>
                                 </connections>
                             </segmentedControl>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="fCs-h8-eQO">
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="fCs-h8-eQO">
                                 <rect key="frame" x="0.0" y="87" width="414" height="638"/>
                                 <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             </tableView>
@@ -536,6 +536,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="808"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <color key="tintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <color key="sectionIndexBackgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <prototypes>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="SomeCell" id="E1B-xo-6Mp">
@@ -561,15 +562,14 @@
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
-        <segue reference="abR-4O-gCb"/>
-        <segue reference="e7W-1h-dVr"/>
+        <segue reference="qZN-j7-ZFm"/>
+        <segue reference="sel-5x-2dF"/>
     </inferredMetricsTieBreakers>
     <color key="tintColor" systemColor="systemOrangeColor"/>
     <resources>
         <image name="film" catalog="system" width="128" height="93"/>
         <image name="list.bullet.rectangle" catalog="system" width="128" height="93"/>
         <image name="magnifyingglass" catalog="system" width="128" height="115"/>
-        <image name="person" catalog="system" width="128" height="117"/>
         <image name="tv" catalog="system" width="128" height="97"/>
         <systemColor name="systemGray6Color">
             <color red="0.94901960784313721" green="0.94901960784313721" blue="0.96862745098039216" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>

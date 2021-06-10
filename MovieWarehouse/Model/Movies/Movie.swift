@@ -19,12 +19,12 @@ struct Movie: Codable, Hashable {
     var genreIDs: [Int]
     var genreMap = [String]()
     var overview: String
-    var voteCount: Int
     var voteAverage: Double
     var mediaType: String?
     var releaseDate: String?
     var firstAirDate: String?
     var premiereDate = ""
+    var userRating = 0
 
     func hash(into hasher: inout Hasher) {
          hasher.combine(id)
@@ -42,7 +42,6 @@ struct Movie: Codable, Hashable {
         case posterPath = "poster_path"
         case backdropPath = "backdrop_path"
         case genreIDs = "genre_ids"
-        case voteCount = "vote_count"
         case voteAverage = "vote_average"
         case mediaType = "media_type"
         case releaseDate = "release_date"

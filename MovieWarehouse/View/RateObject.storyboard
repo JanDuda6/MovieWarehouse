@@ -1,0 +1,212 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="18122" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="18093"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="System colors in document resources" minToolsVersion="11.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <scenes>
+        <!--RateVC-->
+        <scene sceneID="s0d-6b-0kx">
+            <objects>
+                <viewController storyboardIdentifier="ratingVC" useStoryboardIdentifierAsRestorationIdentifier="YES" id="Y6W-OH-hqX" customClass="RateVC" customModule="MovieWarehouse" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="5EZ-qb-Rvc">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="fiP-Li-HOy">
+                                <rect key="frame" x="100" y="94" width="214" height="278"/>
+                                <subviews>
+                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="ICl-1P-9w3">
+                                        <rect key="frame" x="7" y="0.0" width="200" height="250"/>
+                                        <color key="backgroundColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="200" id="Hff-QL-X9q"/>
+                                            <constraint firstAttribute="height" constant="250" id="fhu-bk-nSE"/>
+                                        </constraints>
+                                        <userDefinedRuntimeAttributes>
+                                            <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                                <integer key="value" value="10"/>
+                                            </userDefinedRuntimeAttribute>
+                                        </userDefinedRuntimeAttributes>
+                                    </imageView>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="q2g-v5-k6W">
+                                        <rect key="frame" x="87.5" y="260" width="39.5" height="18"/>
+                                        <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <fontDescription key="fontDescription" name="HelveticaNeue-Bold" family="Helvetica Neue" pointSize="15"/>
+                                        <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                </subviews>
+                            </stackView>
+                            <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" alignment="top" translatesAutoresizingMaskIntoConstraints="NO" id="Bgl-dQ-wS3">
+                                <rect key="frame" x="40" y="412" width="334" height="25"/>
+                                <subviews>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="uZC-o3-cq5">
+                                        <rect key="frame" x="0.0" y="0.0" width="33.5" height="25"/>
+                                        <state key="normal" image="star" catalog="system">
+                                            <preferredSymbolConfiguration key="preferredSymbolConfiguration" scale="large"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="setRating:" destination="Y6W-OH-hqX" eventType="touchUpInside" id="92U-B1-8Th"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="jnD-mS-eS4">
+                                        <rect key="frame" x="33.5" y="0.0" width="33.5" height="25"/>
+                                        <state key="normal" image="star" catalog="system">
+                                            <preferredSymbolConfiguration key="preferredSymbolConfiguration" scale="large"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="setRating:" destination="Y6W-OH-hqX" eventType="touchUpInside" id="TTu-bK-AZ7"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Fxl-Ev-DBT">
+                                        <rect key="frame" x="67" y="0.0" width="33" height="25"/>
+                                        <state key="normal" image="star" catalog="system">
+                                            <preferredSymbolConfiguration key="preferredSymbolConfiguration" scale="large"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="setRating:" destination="Y6W-OH-hqX" eventType="touchUpInside" id="65W-sJ-UNV"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="8Zj-L6-7RZ">
+                                        <rect key="frame" x="100" y="0.0" width="33.5" height="25"/>
+                                        <state key="normal" image="star" catalog="system">
+                                            <preferredSymbolConfiguration key="preferredSymbolConfiguration" scale="large"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="setRating:" destination="Y6W-OH-hqX" eventType="touchUpInside" id="mcm-kq-9p8"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="tbC-oP-rjT">
+                                        <rect key="frame" x="133.5" y="0.0" width="33.5" height="25"/>
+                                        <state key="normal" image="star" catalog="system">
+                                            <preferredSymbolConfiguration key="preferredSymbolConfiguration" scale="large"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="setRating:" destination="Y6W-OH-hqX" eventType="touchUpInside" id="7Eb-Qb-1m5"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="OYn-ht-djl">
+                                        <rect key="frame" x="167" y="0.0" width="33.5" height="25"/>
+                                        <state key="normal" image="star" catalog="system">
+                                            <preferredSymbolConfiguration key="preferredSymbolConfiguration" scale="large"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="setRating:" destination="Y6W-OH-hqX" eventType="touchUpInside" id="3um-sq-RcX"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="dpV-fF-vqc">
+                                        <rect key="frame" x="200.5" y="0.0" width="33.5" height="25"/>
+                                        <state key="normal" image="star" catalog="system">
+                                            <preferredSymbolConfiguration key="preferredSymbolConfiguration" scale="large"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="setRating:" destination="Y6W-OH-hqX" eventType="touchUpInside" id="pb4-qs-AE4"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="s5H-Nf-01M">
+                                        <rect key="frame" x="234" y="0.0" width="33" height="25"/>
+                                        <state key="normal" image="star" catalog="system">
+                                            <preferredSymbolConfiguration key="preferredSymbolConfiguration" scale="large"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="setRating:" destination="Y6W-OH-hqX" eventType="touchUpInside" id="zuA-Yo-ZzQ"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="qfp-JB-oen">
+                                        <rect key="frame" x="267" y="0.0" width="33.5" height="25"/>
+                                        <state key="normal" image="star" catalog="system">
+                                            <preferredSymbolConfiguration key="preferredSymbolConfiguration" scale="large"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="setRating:" destination="Y6W-OH-hqX" eventType="touchUpInside" id="Io1-rp-HHo"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Lcm-by-Y6x">
+                                        <rect key="frame" x="300.5" y="0.0" width="33.5" height="25"/>
+                                        <state key="normal" image="star" catalog="system">
+                                            <preferredSymbolConfiguration key="preferredSymbolConfiguration" scale="large"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="setRating:" destination="Y6W-OH-hqX" eventType="touchUpInside" id="tt2-Wv-bht"/>
+                                        </connections>
+                                    </button>
+                                </subviews>
+                                <color key="tintColor" systemColor="systemOrangeColor"/>
+                            </stackView>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="o7A-mg-sXH">
+                                <rect key="frame" x="60" y="457" width="294" height="30"/>
+                                <color key="backgroundColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <fontDescription key="fontDescription" name="HelveticaNeue-Bold" family="Helvetica Neue" pointSize="15"/>
+                                <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <state key="normal" title="Rate"/>
+                                <connections>
+                                    <action selector="rateButtonPressed:" destination="Y6W-OH-hqX" eventType="touchUpInside" id="NoV-8x-9Vs"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="bVq-dx-Gck">
+                                <rect key="frame" x="80" y="517" width="254" height="30"/>
+                                <color key="backgroundColor" white="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <fontDescription key="fontDescription" name="HelveticaNeue-Bold" family="Helvetica Neue" pointSize="15"/>
+                                <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <state key="normal" title="Delete rating">
+                                    <color key="titleColor" systemColor="systemRedColor"/>
+                                </state>
+                                <connections>
+                                    <action selector="deleteRatingPressed:" destination="Y6W-OH-hqX" eventType="touchUpInside" id="ZK7-6q-aN8"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="vDu-zF-Fre"/>
+                        <color key="backgroundColor" systemColor="labelColor"/>
+                        <constraints>
+                            <constraint firstItem="vDu-zF-Fre" firstAttribute="trailing" secondItem="fiP-Li-HOy" secondAttribute="trailing" constant="100" id="Fuc-E1-2ht"/>
+                            <constraint firstItem="bVq-dx-Gck" firstAttribute="leading" secondItem="vDu-zF-Fre" secondAttribute="leading" constant="80" id="L3i-Cn-SK7"/>
+                            <constraint firstItem="fiP-Li-HOy" firstAttribute="top" secondItem="vDu-zF-Fre" secondAttribute="top" constant="50" id="Ob3-M0-8zl"/>
+                            <constraint firstItem="bVq-dx-Gck" firstAttribute="top" secondItem="o7A-mg-sXH" secondAttribute="bottom" constant="30" id="Q3g-h6-iga"/>
+                            <constraint firstItem="vDu-zF-Fre" firstAttribute="trailing" secondItem="o7A-mg-sXH" secondAttribute="trailing" constant="60" id="R8V-20-KAj"/>
+                            <constraint firstItem="Bgl-dQ-wS3" firstAttribute="leading" secondItem="vDu-zF-Fre" secondAttribute="leading" constant="40" id="g38-sT-yOb"/>
+                            <constraint firstItem="vDu-zF-Fre" firstAttribute="trailing" secondItem="bVq-dx-Gck" secondAttribute="trailing" constant="80" id="q8G-xt-XAx"/>
+                            <constraint firstItem="Bgl-dQ-wS3" firstAttribute="top" secondItem="fiP-Li-HOy" secondAttribute="bottom" constant="40" id="q95-ML-lZX"/>
+                            <constraint firstItem="fiP-Li-HOy" firstAttribute="leading" secondItem="vDu-zF-Fre" secondAttribute="leading" constant="100" id="vB3-2F-ZCz"/>
+                            <constraint firstItem="vDu-zF-Fre" firstAttribute="trailing" secondItem="Bgl-dQ-wS3" secondAttribute="trailing" constant="40" id="wmf-Io-1Oy"/>
+                            <constraint firstItem="o7A-mg-sXH" firstAttribute="top" secondItem="Bgl-dQ-wS3" secondAttribute="bottom" constant="20" id="ysC-NQ-QdV"/>
+                            <constraint firstItem="o7A-mg-sXH" firstAttribute="leading" secondItem="vDu-zF-Fre" secondAttribute="leading" constant="60" id="zux-OB-N2k"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="moviePoster" destination="ICl-1P-9w3" id="oh8-8O-oCT"/>
+                        <outlet property="movieTitle" destination="q2g-v5-k6W" id="L51-r1-2kb"/>
+                        <outletCollection property="stars" destination="uZC-o3-cq5" collectionClass="NSMutableArray" id="jc3-4M-qyw"/>
+                        <outletCollection property="stars" destination="jnD-mS-eS4" collectionClass="NSMutableArray" id="Ndl-lJ-pRw"/>
+                        <outletCollection property="stars" destination="Fxl-Ev-DBT" collectionClass="NSMutableArray" id="gt0-Zo-tGx"/>
+                        <outletCollection property="stars" destination="8Zj-L6-7RZ" collectionClass="NSMutableArray" id="fqr-zi-1GK"/>
+                        <outletCollection property="stars" destination="tbC-oP-rjT" collectionClass="NSMutableArray" id="Hkc-2m-73g"/>
+                        <outletCollection property="stars" destination="OYn-ht-djl" collectionClass="NSMutableArray" id="XTh-pI-QTU"/>
+                        <outletCollection property="stars" destination="dpV-fF-vqc" collectionClass="NSMutableArray" id="bby-xN-v1W"/>
+                        <outletCollection property="stars" destination="s5H-Nf-01M" collectionClass="NSMutableArray" id="w8C-SP-aGa"/>
+                        <outletCollection property="stars" destination="qfp-JB-oen" collectionClass="NSMutableArray" id="WmV-4d-2o8"/>
+                        <outletCollection property="stars" destination="Lcm-by-Y6x" collectionClass="NSMutableArray" id="Kby-aN-BFz"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Ief-a0-LHa" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="131.8840579710145" y="76.339285714285708"/>
+        </scene>
+    </scenes>
+    <resources>
+        <image name="star" catalog="system" width="128" height="116"/>
+        <systemColor name="labelColor">
+            <color white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+        <systemColor name="systemOrangeColor">
+            <color red="1" green="0.58431372549019611" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </systemColor>
+        <systemColor name="systemRedColor">
+            <color red="1" green="0.23137254901960785" blue="0.18823529411764706" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </systemColor>
+    </resources>
+</document>

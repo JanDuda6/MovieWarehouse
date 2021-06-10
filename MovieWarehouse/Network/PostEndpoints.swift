@@ -13,4 +13,5 @@ struct PostEndpoints {
     static let authenticateToken = "https://www.themoviedb.org/authenticate/{REQUEST_TOKEN}?redirect_to=moviewarehouse://"
     static let postMarkAsFavorite = "https://api.themoviedb.org/3/account/{account_id}/favorite?api_key=\(APIKey)"
     static let postWatchList = "https://api.themoviedb.org/3/account/{account_id}/watchlist?api_key=\(APIKey)"
+    static let postRatedMovies = "https://api.themoviedb.org/3/{movie}/{movie_id}/rating?api_key=\(APIKey)"
 }

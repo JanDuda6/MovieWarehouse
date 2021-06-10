@@ -13,13 +13,18 @@ class MovieOrTVDetailsVC: UITableViewController, ASWebAuthenticationPresentation
     private var movieToShow: Movie?
     private var personToShow: Person?
     private var viewModel = MovieOrTVDetailsVM()
-    private var sessionViewModel = SessionListsVM()
+    private var sessionViewModel = SessionVM()
     var authSession: ASWebAuthenticationSession!
 
     override func viewDidLoad() {
         super.viewDidLoad()
         registerCells()
         changeViewModelClass()
+    }
+
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(true)
+        self.tableView.reloadData()
     }
 
     private func registerCells() {
@@ -39,11 +44,12 @@ class MovieOrTVDetailsVC: UITableViewController, ASWebAuthenticationPresentation
 }
 
 extension MovieOrTVDetailsVC: PerformSessionDeleagte {
-    func shouldStartSession(requestToken: String) {
-        guard let authURL = URL(string: sessionViewModel.authorizeRequestToken(requestToken: requestToken)) else { return }
+    func shouldStartSession() {
         let scheme = "moviewarehouse"
+        let endpoint = sessionViewModel.getAuthEndpoint()
+        guard let authURL = URL(string: endpoint) else { return }
         authSession = ASWebAuthenticationSession(url: authURL, callbackURLScheme: scheme) { [self] callbackURL, error in
-            sessionViewModel.getSessionID(requestToken: requestToken)
+            sessionViewModel.getSessionID()
         }
         authSession.presentationContextProvider = self
         authSession.start()
@@ -70,6 +76,7 @@ extension MovieOrTVDetailsVC {
             cell.setCell(movie: viewModel.getObject())
             cell.performSession = self
             self.tableView.rowHeight = UITableView.automaticDimension
+            cell.performRating = self
             return cell
         case 1:
             let cell = tableView.dequeueReusableCell(withIdentifier: "MovieOverviewCell", for: indexPath) as! ObjectOverviewCell
@@ -160,6 +167,15 @@ extension MovieOrTVDetailsVC: PerformSegueDelegate {
         let storyboard = UIStoryboard(name: "PersonDetailsStoryboard", bundle: nil)
         let vc = storyboard.instantiateViewController(withIdentifier: "PersonDetails") as! PersonDetailsVC
         vc.setPerson(person: person)
+        self.navigationController?.show(vc, sender: nil)
+    }
+}
+//MARK: - Rating delegates
+extension MovieOrTVDetailsVC: PerformRatingDelegate {
+    func shouldDisplayRatingVC() {
+        let storyboard = UIStoryboard(name: "RateObject", bundle: nil)
+        let vc = storyboard.instantiateViewController(withIdentifier: "ratingVC") as! RateVC
+        vc.setMovie(movie: movieToShow!)
         self.navigationController?.show(vc, sender: nil)
     }
 }
