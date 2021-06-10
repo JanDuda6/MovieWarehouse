@@ -10,6 +10,6 @@ The app follows the MVVM architectural pattern
   - movies, tv shows and people 
 - Lists 
   - creating favorite and must watch lists
-  - rating movies and TV show (in progress)
+  - rating movies and TV show
 
      
