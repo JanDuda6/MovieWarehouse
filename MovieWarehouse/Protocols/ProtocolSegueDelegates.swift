@@ -14,6 +14,10 @@ protocol PerformSegueDelegate {
 }
 
 protocol PerformSessionDeleagte {
-    func shouldStartSession(requestToken: String)
+    func shouldStartSession()
+}
+
+protocol PerformRatingDelegate {
+    func shouldDisplayRatingVC()
 }
 

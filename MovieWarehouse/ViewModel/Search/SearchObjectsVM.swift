@@ -42,6 +42,7 @@ class SearchObjectsVM {
         apiService.performGetHTTPRequest(request: [endpoint]) { [self] (data, _, _) in
             if segment != "Person" {
                 let movieResponse = apiService.parseMovieResponse(data: data)
+                if movieResponse.results.isEmpty { return }
                 var results = movieResponse.results
                 totalPages = movieResponse.totalPages
                 currentPage = movieResponse.currentPage + 1
@@ -53,6 +54,7 @@ class SearchObjectsVM {
 
             } else {
                 let personResponse = apiService.parsePersonResponse(data: data)
+                if personResponse.results.isEmpty { return }
                 var results = personResponse.results
                 totalPages = personResponse.totalPages
                 currentPage = personResponse.currentPage + 1
