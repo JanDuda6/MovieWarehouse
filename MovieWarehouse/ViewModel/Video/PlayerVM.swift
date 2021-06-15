@@ -30,7 +30,9 @@ class PlayerVM {
                     videos.append(video)
                 }
             }
-            self.videoKey = videos.first!.key
+            if videos.count > 0 {
+                self.videoKey = videos.first!.key
+            }
             completion()
         }
     }
