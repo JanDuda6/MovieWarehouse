@@ -127,15 +127,37 @@
                             </stackView>
                         </subviews>
                     </stackView>
+                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="bKd-Fn-Xg4">
+                        <rect key="frame" x="197" y="173" width="30" height="34"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                    </button>
+                    <stackView opaque="NO" contentMode="scaleToFill" fixedFrame="YES" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="XPI-nC-lyg">
+                        <rect key="frame" x="540" y="26" width="25" height="36"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                    </stackView>
+                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="etB-M8-VGw">
+                        <rect key="frame" x="520" y="26" width="25" height="36"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="30"/>
+                        <color key="tintColor" systemColor="systemBlueColor"/>
+                        <state key="normal">
+                            <imageReference key="image" image="play.circle.fill" catalog="system" symbolScale="large"/>
+                        </state>
+                        <connections>
+                            <action selector="playButtonPressed:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="Rb8-NK-EfD"/>
+                        </connections>
+                    </button>
                 </subviews>
                 <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                 <constraints>
                     <constraint firstAttribute="trailing" secondItem="4V9-SB-egy" secondAttribute="trailing" constant="20" id="0eK-Ea-dzh"/>
+                    <constraint firstItem="etB-M8-VGw" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="26" id="5Z0-Bh-PPv"/>
                     <constraint firstAttribute="trailing" secondItem="GBB-z9-cSv" secondAttribute="trailing" constant="10" id="Ct6-LT-k2q"/>
                     <constraint firstItem="oUD-tA-UKj" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="20" id="Dlg-RY-ht9"/>
                     <constraint firstItem="Yhk-tO-6uq" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="139" id="I29-q2-f29"/>
                     <constraint firstAttribute="trailing" secondItem="Yhk-tO-6uq" secondAttribute="trailing" constant="40" id="KDF-zu-e6W"/>
                     <constraint firstAttribute="bottom" secondItem="oUD-tA-UKj" secondAttribute="bottom" constant="30" id="Od3-Y0-N7L"/>
+                    <constraint firstAttribute="trailing" secondItem="etB-M8-VGw" secondAttribute="trailing" constant="40" id="Wp5-SW-0A6"/>
+                    <constraint firstItem="Yhk-tO-6uq" firstAttribute="top" secondItem="etB-M8-VGw" secondAttribute="bottom" constant="77" id="eIF-Oq-8i8"/>
                     <constraint firstItem="4V9-SB-egy" firstAttribute="leading" secondItem="oUD-tA-UKj" secondAttribute="trailing" constant="19" id="hhT-CZ-rRR"/>
                     <constraint firstAttribute="bottom" secondItem="4V9-SB-egy" secondAttribute="bottom" constant="30" id="iRd-Z7-Jot"/>
                     <constraint firstItem="GBB-z9-cSv" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="10" id="ity-oU-bFD"/>
@@ -164,10 +186,14 @@
     <resources>
         <image name="bookmark" catalog="system" width="112" height="128"/>
         <image name="heart" catalog="system" width="128" height="109"/>
+        <image name="play.circle.fill" catalog="system" width="128" height="121"/>
         <image name="star.fill" catalog="system" width="128" height="116"/>
         <namedColor name="AccentColor">
             <color red="0.0" green="0.46000000000000002" blue="0.89000000000000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
+        <systemColor name="systemBlueColor">
+            <color red="0.0" green="0.47843137254901963" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </systemColor>
         <systemColor name="systemOrangeColor">
             <color red="1" green="0.58431372549019611" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>

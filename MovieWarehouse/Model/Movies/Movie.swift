@@ -25,6 +25,7 @@ struct Movie: Codable, Hashable {
     var firstAirDate: String?
     var premiereDate = ""
     var userRating = 0
+    var videoKey = ""
 
     func hash(into hasher: inout Hasher) {
          hasher.combine(id)

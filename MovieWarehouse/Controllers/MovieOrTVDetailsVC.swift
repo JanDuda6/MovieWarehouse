@@ -14,6 +14,7 @@ class MovieOrTVDetailsVC: UITableViewController, ASWebAuthenticationPresentation
     private var personToShow: Person?
     private var viewModel = MovieOrTVDetailsVM()
     private var sessionViewModel = SessionVM()
+    private var playerVM = PlayerVM()
     var authSession: ASWebAuthenticationSession!
 
     override func viewDidLoad() {
@@ -35,6 +36,7 @@ class MovieOrTVDetailsVC: UITableViewController, ASWebAuthenticationPresentation
 
     private func changeViewModelClass() {
         viewModel.setMovieOrTV(movie: movieToShow!)
+        playerVM.setMovieID(movie: movieToShow!)
         movieToShow?.name != nil ? fetchDetails(moviesOrTV: false) : fetchDetails(moviesOrTV: true)
     }
 
@@ -75,9 +77,11 @@ extension MovieOrTVDetailsVC {
             let cell = tableView.dequeueReusableCell(withIdentifier: "Header", for: indexPath) as! HeaderDetailsTableViewCell
             cell.setCell(movie: viewModel.getObject())
             cell.setGenres(genre: viewModel.getGenres())
+            cell.setVideoKey(videoKey: playerVM.getVideoKey())
             cell.performSession = self
-            self.tableView.rowHeight = UITableView.automaticDimension
             cell.performRating = self
+            cell.performPlayVideo = self
+            self.tableView.rowHeight = UITableView.automaticDimension
             return cell
         case 1:
             let cell = tableView.dequeueReusableCell(withIdentifier: "MovieOverviewCell", for: indexPath) as! ObjectOverviewCell
@@ -150,6 +154,11 @@ extension MovieOrTVDetailsVC {
                 self.tableView.reloadData()
             }
         }
+        playerVM.fetchVideoKey {
+            DispatchQueue.main.async {
+                self.tableView.reloadData()
+            }
+        }
     }
 }
 //MARK: - Segue delegates
@@ -179,5 +188,17 @@ extension MovieOrTVDetailsVC: PerformRatingDelegate {
         vc.setMovie(movie: movieToShow!)
         self.navigationController?.show(vc, sender: nil)
     }
+}
+
+//MARK: - Play Video
+extension MovieOrTVDetailsVC: PerformPlayVideoDelegate {
+    func shouldPlayVideo(videoKey: String) {
+        let storyboard = UIStoryboard(name: "PlayerView", bundle: nil)
+        let vc = storyboard.instantiateViewController(withIdentifier: "PlayerView") as! PlayerVC
+        vc.setKey(key: videoKey)
+        self.navigationController?.show(vc, sender: nil)
+    }
+
+
 }
 

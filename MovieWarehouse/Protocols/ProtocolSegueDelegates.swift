@@ -21,3 +21,7 @@ protocol PerformRatingDelegate {
     func shouldDisplayRatingVC()
 }
 
+protocol PerformPlayVideoDelegate {
+    func shouldPlayVideo(videoKey: String)
+}
+
