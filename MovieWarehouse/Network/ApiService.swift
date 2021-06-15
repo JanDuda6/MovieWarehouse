@@ -58,25 +58,12 @@ class APIService {
         }
         task.resume()
     }
-}
-
-//MARK: - Encode
-extension APIService {
-func parseRatingToData(rating: Rate) -> Data {
-        return try! JSONEncoder().encode(rating)
-    }
-
-    func parseMarkAsFavoriteToData(modelToUpload: AccountList) -> Data {
-        return try! JSONEncoder().encode(modelToUpload)
-    }
-
-    func parseRequestTokenToData(modelToUpload: RequestToken) -> Data {
-        return try! JSONEncoder().encode(modelToUpload)
-    }
-}
-
+    
 //MARK: - Decode
-extension APIService {
+    func parseMovieResponse(data: Data) -> MovieResponse {
+        return try! decoder.decode(MovieResponse.self, from: data)
+    }
+
     func parseAccountDetails(data: Data) -> AccountDetails? {
         do {
             return try decoder.decode(AccountDetails.self, from: data)
@@ -87,10 +74,6 @@ extension APIService {
 
     func parseAlert(data: Data) -> Alert {
         return try! decoder.decode(Alert.self, from: data)
-    }
-
-    func parseMovieResponse(data: Data) -> MovieResponse {
-        return try! decoder.decode(MovieResponse.self, from: data)
     }
 
     func parsePersonResponse(data: Data) -> PersonResponse {
@@ -112,7 +95,7 @@ extension APIService {
     func parsePersonData(data: Data) -> Person {
         return try! decoder.decode(Person.self, from: data)
     }
-    
+
     func parsePersonCastData(data: Data) -> PersonCredits {
         return try! decoder.decode(PersonCredits.self, from: data)
     }
@@ -127,5 +110,18 @@ extension APIService {
         } catch {
             return nil
         }
+    }
+
+//MARK: - Encode
+    func parseRatingToData(rating: Rate) -> Data {
+        return try! JSONEncoder().encode(rating)
+    }
+
+    func parseMarkAsFavoriteToData(modelToUpload: AccountList) -> Data {
+        return try! JSONEncoder().encode(modelToUpload)
+    }
+
+    func parseRequestTokenToData(modelToUpload: RequestToken) -> Data {
+        return try! JSONEncoder().encode(modelToUpload)
     }
 }

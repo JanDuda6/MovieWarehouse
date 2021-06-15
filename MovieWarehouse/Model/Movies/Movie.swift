@@ -16,10 +16,10 @@ struct Movie: Codable, Hashable {
     var posterImage = UIImage()
     var backdropImage = UIImage()
     var backdropPath: String?
-    var genreIDs: [Int]
-    var genreMap = [String]()
-    var overview: String
-    var voteAverage: Double
+    var genreIDs: [Int]?
+    var genres = ""
+    var overview: String?
+    var voteAverage: Double?
     var mediaType: String?
     var releaseDate: String?
     var firstAirDate: String?
