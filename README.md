@@ -11,4 +11,6 @@ The app follows the MVVM architectural pattern
 - Lists 
   - creating favorite and must watch lists
   - rating movies and TV show
+- Videos
+  - app provides possibility to watch movies and tv trailers
 - Tests
