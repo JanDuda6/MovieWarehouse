@@ -52,6 +52,10 @@ struct GetEndpoints {
 
     //Favorite lists
     static let getLists = "https://api.themoviedb.org/3/account/{account_id}/{category}/{media}?api_key=\(APIKey)&session_id={sessionID}&sort_by=created_at.desc"
+
+    //Trailers
+    static let getMovieTrailers = "https://api.themoviedb.org/3/movie/{movie_id}/videos?api_key=\(APIKey)"
+    static let getTVTrailers = "https://api.themoviedb.org/3/tv/{tv_id}/videos?api_key=\(APIKey)"
 }
 
 

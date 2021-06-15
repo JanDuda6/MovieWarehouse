@@ -23,6 +23,7 @@ class HeaderDetailsTableViewCell: UITableViewCell {
     private let rateViewModel = RateObjectVM()
     var performSession: PerformSessionDeleagte?
     var performRating: PerformRatingDelegate?
+    var performPlayVideo: PerformPlayVideoDelegate?
     var movieToShow: Movie?
     var favoriteButtonTappedCounter = 1
     var watchListButtonTappedCounter = 1
@@ -53,8 +54,12 @@ class HeaderDetailsTableViewCell: UITableViewCell {
     func setGenres(genre: String) {
         self.genre.text = genre
     }
-    
-    func setFavoriteButton(movie: Movie) {
+
+    func setVideoKey(videoKey: String) {
+        self.movieToShow!.videoKey = videoKey
+    }
+
+    private func setFavoriteButton(movie: Movie) {
         let imageConfig = UIImage.SymbolConfiguration(pointSize: 0, weight: .regular, scale: .large)
         var image = UIImage()
         if crudUserListsVM.checkIfObjectIsInList(checkWatchList: false, movie: movieToShow!) == false {
@@ -68,7 +73,7 @@ class HeaderDetailsTableViewCell: UITableViewCell {
         }
     }
     
-    func setWatchListButton(movie: Movie) {
+    private func setWatchListButton(movie: Movie) {
         let imageConfig = UIImage.SymbolConfiguration(pointSize: 0, weight: .regular, scale: .large)
         var image = UIImage()
         if crudUserListsVM.checkIfObjectIsInList(checkWatchList: true, movie: movieToShow!) == false {
@@ -82,7 +87,7 @@ class HeaderDetailsTableViewCell: UITableViewCell {
         }
     }
     
-    func setRatingButton() {
+    private func setRatingButton() {
         rateViewModel.getMovieRating() { [self] rating in
             guard let rating = rating else {return}
             self.movieToShow?.userRating = rating
@@ -118,6 +123,12 @@ class HeaderDetailsTableViewCell: UITableViewCell {
             performSession?.shouldStartSession()
         } else {
             self.performRating?.shouldDisplayRatingVC()
+        }
+    }
+
+    @IBAction func playButtonPressed(_ sender: UIButton) {
+        if movieToShow?.videoKey != "" {
+            performPlayVideo?.shouldPlayVideo(videoKey: movieToShow!.videoKey)
         }
     }
 }

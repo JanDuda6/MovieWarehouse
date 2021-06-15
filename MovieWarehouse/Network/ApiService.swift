@@ -112,6 +112,10 @@ class APIService {
         }
     }
 
+    func parseVideoResults(data: Data) -> VideoResults {
+        return try! decoder.decode(VideoResults.self, from: data)
+    }
+
 //MARK: - Encode
     func parseRatingToData(rating: Rate) -> Data {
         return try! JSONEncoder().encode(rating)
