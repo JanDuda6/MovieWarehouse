@@ -34,20 +34,19 @@ class MovieOrTVDetailsVM {
             self.movie!.backdropImage = imageService.getImageFromURL(url: imageService.profileURL(pathToImage: movie.backdropPath))
             let dataParsed = apiService?.parseGenreResponse(data: data)
             let genreList = dataParsed!.genres
-            for movieGenre in movie.genreIDs {
+            for movieGenre in movie.genreIDs! {
                 for genre in  genreList {
                     if movieGenre == genre.id {
                         self.genreList.append(genre.name)
                     }
                 }
             }
-            self.movie!.genreMap = getGenres()
             completion()
         })
     }
 
     func fetchCredits(moviesOrTV: Bool, completion: @escaping () -> Void) {
-        guard var movie = movie else { return }
+        guard let movie = movie else { return }
         var endpoint = [String]()
         if moviesOrTV ==  true {
             endpoint = [GetEndpoints.movieCredits.replacingOccurrences(of: "{movie_id}", with: String(movie.id))]
@@ -58,12 +57,12 @@ class MovieOrTVDetailsVM {
             guard let creditsResponse = apiService?.parseCastResponse(data: data) else { return }
             
             for n in 0..<creditsResponse.cast.count {
-                if creditsResponse.cast[n].orderInCredits! < 10 {
+                if creditsResponse.cast[n].orderInCredits ?? 0 < 10 {
                     castAndCrew.append(creditsResponse.cast[n])
                 }
             }
             for n in 0..<creditsResponse.crew.count {
-                if Constants.crewJobs.contains(creditsResponse.crew[n].job!) {
+                if Constants.crewJobs.contains(creditsResponse.crew[n].job ?? "") {
                     castAndCrew.append(creditsResponse.crew[n])
                 }
             }
@@ -71,7 +70,6 @@ class MovieOrTVDetailsVM {
                 castAndCrew[n].profileImage =
                     imageService.getImageFromURL(url: imageService.profileURL(pathToImage: castAndCrew[n].profilePath))
             }
-            movie.genreMap = getGenres()
             completion()
         }
     }
@@ -126,9 +124,9 @@ class MovieOrTVDetailsVM {
         return watchProviders
     }
 
-    private func getGenres() -> [String] {
+    func getGenres() -> String {
         let slicedGenreList = (genreList.count > 2) ? Array(genreList.prefix(2)) : genreList
-        return slicedGenreList
+        return slicedGenreList.joined(separator: ", ")
     }
 
     func getRecommendation() -> ([Movie]) {

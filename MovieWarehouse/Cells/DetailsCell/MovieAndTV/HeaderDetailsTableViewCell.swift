@@ -37,8 +37,7 @@ class HeaderDetailsTableViewCell: UITableViewCell {
         self.posterImage.image = movie.posterImage
         self.backGroundImage.image = movie.backdropImage
         self.title.text = movie.title != nil ? movie.title : movie.name
-        self.genre.text = movie.genreMap.joined(separator: ", ")
-        self.rateLabel.text = "\(movie.voteAverage)/10"
+        self.rateLabel.text = "\(movie.voteAverage!)/10"
         self.movieToShow = movie
         setFavoriteButton(movie: movieToShow!)
         setWatchListButton(movie: movieToShow!)
@@ -49,6 +48,10 @@ class HeaderDetailsTableViewCell: UITableViewCell {
         } else {
             self.rating.setTitle("Rate this", for: .normal)
         }
+    }
+
+    func setGenres(genre: String) {
+        self.genre.text = genre
     }
     
     func setFavoriteButton(movie: Movie) {

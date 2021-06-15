@@ -26,7 +26,7 @@ class KnownForCell: UITableViewCell {
         } else {
             self.titleLabel.text = movie.name
         }
-        self.rateLabel.text = "\(movie.voteAverage)/10"
+        self.rateLabel.text = "\(movie.voteAverage!)/10"
         self.genreLabel.text = "\(movie.mediaType ?? "") \(movie.premiereDate)"
     }
 }

@@ -74,13 +74,14 @@ extension MovieOrTVDetailsVC {
         case 0:
             let cell = tableView.dequeueReusableCell(withIdentifier: "Header", for: indexPath) as! HeaderDetailsTableViewCell
             cell.setCell(movie: viewModel.getObject())
+            cell.setGenres(genre: viewModel.getGenres())
             cell.performSession = self
             self.tableView.rowHeight = UITableView.automaticDimension
             cell.performRating = self
             return cell
         case 1:
             let cell = tableView.dequeueReusableCell(withIdentifier: "MovieOverviewCell", for: indexPath) as! ObjectOverviewCell
-            cell.setCell(overview: viewModel.getObject().overview)
+            cell.setCell(overview: viewModel.getObject().overview ?? "")
             self.tableView.rowHeight = UITableView.automaticDimension
             return cell
         case 2:
@@ -129,7 +130,7 @@ extension MovieOrTVDetailsVC {
 //MARK: - Fetch data
 extension MovieOrTVDetailsVC {
     private func fetchDetails(moviesOrTV: Bool) {
-        viewModel.fetchGenre(moviesOrTV: moviesOrTV) { () in
+        viewModel.fetchGenre(moviesOrTV: moviesOrTV) { [self] () in
             DispatchQueue.main.async {
                 self.tableView.reloadData()
             }
